@@ -1,222 +1,289 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIFXCODE</title>
+<!DOCTYPE html>  
+<html lang="id">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>LIFXCODE WEBSITE BOY</title>  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">  
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">  
+  
+<style>  
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}  
+  
+body{  
+  height:100vh;  
+  background:url('https://cdn.phototourl.com/uploads/2026-02-07-0487e0da-b32a-482c-b3ef-4c83dee5aa5c.png') no-repeat center center/cover;  
+  display:flex;  
+  justify-content:center;  
+  align-items:center;  
+  color:white;  
+  overflow:hidden;  
+  position:relative;  
+}  
+  
+body::before{  
+  content:'';  
+  position:absolute;top:0;left:0;width:100%;height:100%;  
+  background:rgba(0,0,0,0.35);  
+  backdrop-filter:blur(8px);  
+  z-index:0;  
+}  
+  
+.container{  
+  width:360px;  
+  text-align:center;  
+  position:relative;  
+  z-index:1;  
+}  
+  
+.logo-box{  
+  width:180px;  
+  height:180px;  
+  margin:0 auto 14px;  
+  border:4px solid #00f2ff;  
+  border-radius:50%;  
+  display:flex;  
+  justify-content:center;  
+  align-items:center;  
+  overflow:hidden;  
+  box-shadow:0 0 12px #00f2ff,0 0 28px rgba(0,242,255,.7);  
+}  
+  
+.logo-box img{width:100%;height:100%;object-fit:cover;border-radius:50%;}  
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+/* ANIMASI TEKS DESC */  
+.desc{  
+  font-size:15px;  
+  font-weight:600;  
+  opacity:1;  
+  margin-top:10px;  
+  text-shadow:0 0 6px #000;  
+  position:relative;  
+  overflow:hidden;  
+  height:22px; /* sesuaikan tinggi teks */  
+}  
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Arial Black','Segoe UI',sans-serif;
-}
+.desc span{  
+  display:inline-block;  
+  opacity:0;  
+  transform:translateY(20px);  
+  animation:fadeMove 3s ease-in-out infinite;  
+}  
 
-body{
-  height:100vh;
-  background:radial-gradient(circle at top,#2c2f6b,#050510);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:white;
-}
+@keyframes fadeMove{  
+  0% {opacity:0; transform:translateY(20px);}  
+  10% {opacity:1; transform:translateY(0);}  
+  45% {opacity:1; transform:translateY(0);}  
+  55% {opacity:0; transform:translateY(-20px);}  
+  100% {opacity:0; transform:translateY(-20px);}  
+}  
+  
+.social{  
+  display:flex;justify-content:space-between;margin:24px 0;  
+}  
+  
+.social button{  
+  font-size:22px;padding:12px;border-radius:14px;background:rgba(255,255,255,0.07);  
+  transition:.3s;cursor:pointer;width:50px;height:50px;display:flex;justify-content:center;align-items:center;  
+  box-shadow:0 0 8px rgba(0,242,255,0.5);border:none;  
+}  
+  
+.social button:hover{  
+  background:#00f2ff;color:black;transform:translateY(-4px) scale(1.1);  
+  box-shadow:0 0 16px #00f2ff;  
+}  
+  
+.social button i{font-size:22px;color:#00f2ff;}  
+  
+.menu button{  
+  width:100%;margin:9px 0;padding:14px;border:none;border-radius:16px;  
+  font-size:17px;font-weight:600;background:rgba(255,255,255,0.06);color:white;cursor:pointer;transition:.3s;  
+  box-shadow:0 0 6px rgba(0,242,255,0.5);  
+}  
+  
+.menu button i{margin-right:10px;font-size:18px;color:#00f2ff;}  
+  
+.menu button:hover{background:#00f2ff;color:black;transform:scale(1.03);box-shadow:0 0 16px #00f2ff;}  
+  
+footer{margin-top:18px;font-size:13px;opacity:.55;z-index:1;position:relative;}  
+  
+.overlay{  
+  position:fixed;top:0;left:0;width:100%;height:100%;background:black;  
+  display:flex;justify-content:center;align-items:center;flex-direction:column;  
+  z-index:999;opacity:0;pointer-events:none;transition:opacity 0.5s;overflow:hidden;  
+}  
+  
+.overlay.active{opacity:1;pointer-events:auto;}  
+  
+#closeBtn{  
+  position:absolute;top:20px;right:20px;font-size:28px;color:#00f2ff;  
+  background:rgba(0,0,0,0.3);border:none;border-radius:50%;width:50px;height:50px;  
+  cursor:pointer;display:flex;justify-content:center;align-items:center;opacity:0;  
+  transition:opacity 0.3s, transform 0.3s;  
+}  
+  
+.overlay.active #closeBtn{opacity:1;transform:scale(1);}  
+#closeBtn:hover{background:#00f2ff;color:black;}  
+  
+#stepContainer{display:flex;flex-direction:column;gap:12px;width:80%;max-width:320px;text-align:center;}  
+#stepContainer button{padding:14px;font-size:16px;border-radius:12px;border:none;background:rgba(0,242,255,0.1);color:white;cursor:pointer;transition:.3s;box-shadow:0 0 6px #00f2ff;}  
+#stepContainer button:hover{background:#00f2ff;color:black;transform:scale(1.05);}  
+  
+.star{  
+  position:absolute;width:4px;height:4px;background:#00f2ff;border-radius:50%;  
+  opacity:0.8;animation-name:riseLoop;animation-timing-function:linear;animation-iteration-count:infinite;  
+}  
+  
+@keyframes riseLoop{0% {transform:translateY(100vh) scale(0);} 100% {transform:translateY(-20vh) scale(1);}}  
+</style>  
+</head>  
+<body>  
+  
+<div class="container">  
+  <div class="logo-box"><img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png" alt="Logo"></div>  
+  <p class="desc"></p> <!-- Teks animasi akan muncul di sinil ah sangee nih kocokin dong dell -->  
+  
+  <div class="social">  
+    <button onclick="go('github')"><i class="fab fa-github"></i></button>  
+    <button onclick="go('ig')"><i class="fab fa-instagram"></i></button>  
+    <button onclick="go('fb')"><i class="fab fa-facebook"></i></button>  
+    <button onclick="go('tt')"><i class="fab fa-tiktok"></i></button>  
+    <button onclick="go('dc')"><i class="fab fa-discord"></i></button>  
+    <button onclick="showIntro()"><i class="fab fa-linkedin"></i></button>  
+  </div>  
+  
+  <div class="menu">  
+    <button onclick="go('waChannel')"><i class="fab fa-whatsapp"></i>Saluran WhatsApp</button>  
+    <button onclick="go('youtube')"><i class="fab fa-youtube"></i>YouTube</button>  
+    <button onclick="go('wa')"><i class="fab fa-whatsapp"></i>WhatsApp</button>  
+    <button onclick="go('email')"><i class="fas fa-envelope"></i>Email</button>  
+    <button onclick="showLogin()"><i class="fas fa-sign-in-alt"></i>Login Menu</button>  
+  </div>  
+  
+  <footer>© lifffXcodee</footer>  
+</div>  
+  
+<!-- OVERLAY PERKENALAN -->  
+<div class="overlay" id="introOverlay">  
+  <button id="closeBtn" onclick="closeIntro()">&times;</button>  
+  <div id="introText"></div>  
+</div>  
+  
+<!-- OVERLAY LOGIN 5 LANGKAH -->  
+<div class="overlay" id="loginOverlay">  
+  <button id="closeBtn" onclick="closeLogin()">&times;</button>  
+  <div id="loginStars"></div>  
+  <div id="stepContainer"></div>  
+</div>  
+  
+<script>  
+// LINK  
+function go(type){  
+  if(type==='waChannel') window.open('https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q','_blank');  
+  if(type==='youtube') window.open('https://www.youtube.com/@AlifDiaz-v8v','_blank');  
+  if(type==='wa') window.open('https://wa.me/6282319663436','_blank');  
+  if(type==='email') window.location.href='mailto:diazalif807@gmail.com';  
+  if(type==='github') window.open('https://github.com/diazalif807-bit','_blank');  
+  if(type==='ig') window.open('https://www.instagram.com/lifxdiaz?igsh=aTAzOHlwcHRhbmp4','_blank');  
+  if(type==='fb') window.open('https://www.facebook.com/share/1Zs7wE1waP/','_blank');  
+  if(type==='tt') window.open('https://vm.tiktok.com/ZS9JLn6VBr49B-oIexM/','_blank');  
+  if(type==='dc') window.open('https://discord.gg/YbjkvBdWK','_blank');  
+}  
+  
+// OVERLAY PERKENALAN  
+const introOverlay=document.getElementById('introOverlay');  
+const introText=document.getElementById('introText');  
+  
+function showIntro(){  
+  introOverlay.classList.add('active');introText.textContent='';createStars(40);  
+  const text=`Yo, wassup gengs! 😎  
+Perkenalkan, aku @LiffxXcode, si tukang ngoprek digital yang kadang serius, tapi lebih sering… ya gitu deh, santai aja. 💻✨  
+Di dunia coding, gue kadang bikin script keren, kadang cuma bikin AI ngambek karena nggak ngerti perintah gue.  
+  
+😅 Tapi untungnya, sekarang ada AI yang kadang bantuin gue supaya nggak terlalu nyasar di labirin kode—iya, beneran,   
+  
+AI gue ini kayak sidekick yang setia, walau kadang lebih pinter dari gue sendiri. 🤖💥  
+  
+Di sini lo bakal nemuin karya gue yang random tapi asik, mulai dari coding gokil, desain visual yang lumayan cakep, sampe tips-tips receh tapi berguna biar nggak nyasar pas ngoding tengah malem. 🚀  
+  
+Jadi kalau lo pengen belajar, ketawa bareng, atau sekadar liat gue ribet sama AI-nya, follow aja, biar nggak ketinggalan drama digital kita.  
+  
+Stay cool, keep coding, dan jangan lupa… AI gue kadang suka curhat juga, tapi jangan bilang siapa-siapa ya! 😎  
+@LiffxXcode out. ✨`;  
+  let i=0;  
+  function typeWriter(){if(i<text.length){introText.textContent+=text.charAt(i);i++;setTimeout(typeWriter,50);}else{setTimeout(closeIntro,3000);}}  
+  typeWriter();  
+}  
+  
+function closeIntro(){introOverlay.classList.remove('active');document.querySelectorAll('.star').forEach(s=>s.remove());}  
+  
+// BINTANG LOOPING  
+function createStars(num){for(let i=0;i<num;i++){const star=document.createElement('div');star.classList.add('star');star.style.left=Math.random()*100+'vw';star.style.width=star.style.height=(2+Math.random()*3)+'px';star.style.animationDuration=(6+Math.random()*4)+'s';introOverlay.appendChild(star);}}  
+  
+// LOGIN 5 LANGKAH  
+const loginOverlay=document.getElementById('loginOverlay');  
+const stepContainer=document.getElementById('stepContainer');  
+const loginStars=document.getElementById('loginStars');  
+let currentStep=0;  
+  
+const steps=[  
+  {choices:['A','B','C','D'],correct:2},  
+  {choices:['E','F','G','H'],correct:0},  
+  {choices:['I','J','K','L'],correct:1},  
+  {choices:['M','N','O','P'],correct:3},  
+  {choices:['Q','R','S','T'],correct:0,link:'https://whatsapp.com/channel/0029VbBdE3K9cDDSRMl9TS2e'}  
+];  
+  
+function showLogin(){  
+  loginOverlay.classList.add('active');  
+  createStarsLogin(30);  
+  currentStep=0;  
+  showStep();  
+}  
+  
+function closeLogin(){loginOverlay.classList.remove('active');stepContainer.innerHTML='';loginStars.innerHTML='';}  
+  
+function createStarsLogin(num){for(let i=0;i<num;i++){const s=document.createElement('div');s.classList.add('star');s.style.left=Math.random()*100+'vw';s.style.width=s.style.height=(2+Math.random()*3)+'px';s.style.animationDuration=(6+Math.random()*4)+'s';loginStars.appendChild(s);}}  
+  
+function showStep(){  
+  stepContainer.innerHTML='';  
+  const step=steps[currentStep];  
+  step.choices.forEach((c,i)=>{  
+    const btn=document.createElement('button');  
+    btn.textContent=c;  
+    btn.onclick=()=>{checkStep(i)};  
+    stepContainer.appendChild(btn);  
+  });  
+}  
+  
+function checkStep(selected){  
+  const step=steps[currentStep];  
+  if(selected===step.correct){  
+    currentStep++;  
+    if(currentStep>=steps.length){  
+      window.open(step.link,'_blank');  
+      closeLogin();  
+    }else showStep();  
+  }else{closeLogin();}  
+}  
 
-.container{
-  width:360px;
-  text-align:center;
-  animation:fade 1.2s ease;
-}
+// ANIMASI TEKS DESC LOOPING  
+const desc = document.querySelector('.desc');  
+const descTexts = ["⭐ Selamat Datang Boyy ⭐","Di","Website Saya"];  
+let descIdx = 0;  
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
+function showDescLoop(){  
+  desc.innerHTML = '';  
+  const span = document.createElement('span');  
+  span.textContent = descTexts[descIdx];  
+  desc.appendChild(span);  
+  descIdx = (descIdx + 1) % descTexts.length;  
+  setTimeout(showDescLoop, 3000);  
+}  
 
-/* LOGO BOX */
-.logo-box{
-  width:200px;
-  height:130px;
-  margin:0 auto 14px;
-  border:2.5px solid #fff;
-  border-radius:16px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-evenly;
-  align-items:center;
-  padding:10px;
-  box-shadow:
-    0 0 10px #fff,
-    0 0 22px rgba(255,255,255,.7);
-  animation:pulse 2.5s infinite alternate;
-}
-
-@keyframes pulse{
-  from{box-shadow:0 0 8px #fff;}
-  to{box-shadow:0 0 24px #fff;}
-}
-
-.logo-text{
-  width:100%;
-  text-align:center;
-  font-weight:900;
-  letter-spacing:3px;
-  color:white;
-  text-shadow:
-    0 0 6px #fff,
-    0 0 14px #fff;
-}
-
-.logo-text.top{
-  font-size:36px;
-  line-height:1;
-}
-
-.logo-text.bottom{
-  font-size:30px;
-  line-height:1;
-}
-
-/* DESC */
-.desc{
-  font-size:15px;
-  font-weight:700;
-  opacity:.85;
-  margin-top:6px;
-}
-
-/* SOCIAL */
-.social{
-  display:flex;
-  justify-content:space-between;
-  margin:24px 0;
-}
-
-.social i{
-  font-size:22px;
-  padding:12px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.07);
-  transition:.3s;
-  cursor:pointer;
-}
-
-.social i:hover{
-  background:#00f2ff;
-  color:black;
-  transform:translateY(-4px) scale(1.1);
-}
-
-/* MENU */
-.menu button{
-  width:100%;
-  margin:9px 0;
-  padding:14px;
-  border:none;
-  border-radius:16px;
-  font-size:17px;
-  font-weight:800;
-  background:rgba(255,255,255,0.06);
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.menu button i{
-  margin-right:10px;
-  font-size:18px;
-  color:#00f2ff;
-}
-
-.menu button:hover{
-  background:#00f2ff;
-  color:black;
-  transform:scale(1.03);
-}
-
-footer{
-  margin-top:18px;
-  font-size:13px;
-  opacity:.55;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-  <!-- LOGO -->
-  <div class="logo-box">
-    <div class="logo-text top">LIFXX</div>
-    <div class="logo-text bottom">CODE</div>
-  </div>
-
-  <p class="desc">Pembuat Website | Codingers Imsuu</p>
-
-  <div class="social">
-    <i class="fab fa-github" onclick="go('github')"></i>
-    <i class="fab fa-instagram" onclick="go('ig')"></i>
-    <i class="fab fa-facebook" onclick="go('fb')"></i>
-    <i class="fab fa-tiktok" onclick="go('tt')"></i>
-    <i class="fab fa-discord" onclick="go('dc')"></i>
-    <i class="fab fa-linkedin" onclick="go('in')"></i>
-  </div>
-
-  <div class="menu">
-    <button onclick="go('waChannel')">
-      <i class="fab fa-whatsapp"></i>Saluran WhatsApp
-    </button>
-    <button onclick="go('youtube')">
-      <i class="fab fa-youtube"></i>YouTube
-    </button>
-    <button onclick="go('wa')">
-      <i class="fab fa-whatsapp"></i>WhatsApp
-    </button>
-    <button onclick="go('email')">
-      <i class="fas fa-envelope"></i>Email
-    </button>
-  </div>
-
-  <footer>© lifffXcodee</footer>
-
-</div>
-
-<script>
-function go(type){
-  if(type==='waChannel')
-    window.open('https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q','_blank');
-
-  if(type==='youtube')
-    window.open('https://www.youtube.com/@AlifDiaz-v8v','_blank');
-
-  if(type==='wa')
-    window.open('https://wa.me/6282319663436','_blank');
-
-  if(type==='email')
-    window.location.href='mailto:diazalif807@gmail.com';
-
-  if(type==='github')
-    window.open('https://github.com/diazalif807-bit','_blank');
-
-  if(type==='ig')
-    window.open('https://www.instagram.com/lifxdiaz?igsh=aTAzOHlwcHRhbmp4','_blank');
-
-  if(type==='fb')
-    window.open('https://www.facebook.com/share/1Zs7wE1waP/','_blank');
-
-  if(type==='tt')
-    window.open('https://vm.tiktok.com/ZS9JLn6VBr49B-oIexM/','_blank');
-
-  if(type==='dc')
-    window.open('https://discord.gg/YbjkvBdWK','_blank');
-
-  if(type==='in')
-    window.open('https://linkedin.com','_blank');
-}
-</script>
-
-</body>
+showDescLoop();  
+</script>  
+  
+</body>  
 </html>
