@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIFXCODE</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Arial Black','Segoe UI',sans-serif;
+}
+
+body{
+  height:100vh;
+  background:radial-gradient(circle at top,#2c2f6b,#050510);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
+
+.container{
+  width:360px;
+  text-align:center;
+  animation:fade 1.2s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* LOGO BOX */
+.logo-box{
+  width:200px;
+  height:130px;
+  margin:0 auto 14px;
+  border:2.5px solid #fff;
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  align-items:center;
+  padding:10px;
+  box-shadow:
+    0 0 10px #fff,
+    0 0 22px rgba(255,255,255,.7);
+  animation:pulse 2.5s infinite alternate;
+}
+
+@keyframes pulse{
+  from{box-shadow:0 0 8px #fff;}
+  to{box-shadow:0 0 24px #fff;}
+}
+
+.logo-text{
+  width:100%;
+  text-align:center;
+  font-weight:900;
+  letter-spacing:3px;
+  color:white;
+  text-shadow:
+    0 0 6px #fff,
+    0 0 14px #fff;
+}
+
+.logo-text.top{
+  font-size:36px;
+  line-height:1;
+}
+
+.logo-text.bottom{
+  font-size:30px;
+  line-height:1;
+}
+
+/* DESC */
+.desc{
+  font-size:15px;
+  font-weight:700;
+  opacity:.85;
+  margin-top:6px;
+}
+
+/* SOCIAL */
+.social{
+  display:flex;
+  justify-content:space-between;
+  margin:24px 0;
+}
+
+.social i{
+  font-size:22px;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.07);
+  transition:.3s;
+  cursor:pointer;
+}
+
+.social i:hover{
+  background:#00f2ff;
+  color:black;
+  transform:translateY(-4px) scale(1.1);
+}
+
+/* MENU */
+.menu button{
+  width:100%;
+  margin:9px 0;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  font-size:17px;
+  font-weight:800;
+  background:rgba(255,255,255,0.06);
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.menu button i{
+  margin-right:10px;
+  font-size:18px;
+  color:#00f2ff;
+}
+
+.menu button:hover{
+  background:#00f2ff;
+  color:black;
+  transform:scale(1.03);
+}
+
+footer{
+  margin-top:18px;
+  font-size:13px;
+  opacity:.55;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- LOGO -->
+  <div class="logo-box">
+    <div class="logo-text top">LIFXX</div>
+    <div class="logo-text bottom">CODE</div>
+  </div>
+
+  <p class="desc">Pembuat Website | Codingers Imsuu</p>
+
+  <div class="social">
+    <i class="fab fa-github" onclick="go('github')"></i>
+    <i class="fab fa-instagram" onclick="go('ig')"></i>
+    <i class="fab fa-facebook" onclick="go('fb')"></i>
+    <i class="fab fa-tiktok" onclick="go('tt')"></i>
+    <i class="fab fa-discord" onclick="go('dc')"></i>
+    <i class="fab fa-linkedin" onclick="go('in')"></i>
+  </div>
+
+  <div class="menu">
+    <button onclick="go('waChannel')">
+      <i class="fab fa-whatsapp"></i>Saluran WhatsApp
+    </button>
+    <button onclick="go('youtube')">
+      <i class="fab fa-youtube"></i>YouTube
+    </button>
+    <button onclick="go('wa')">
+      <i class="fab fa-whatsapp"></i>WhatsApp
+    </button>
+    <button onclick="go('email')">
+      <i class="fas fa-envelope"></i>Email
+    </button>
+  </div>
+
+  <footer>© lifffXcodee</footer>
+
+</div>
+
+<script>
+function go(type){
+  if(type==='waChannel')
+    window.open('https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q','_blank');
+
+  if(type==='youtube')
+    window.open('https://www.youtube.com/@AlifDiaz-v8v','_blank');
+
+  if(type==='wa')
+    window.open('https://wa.me/6282319663436','_blank');
+
+  if(type==='email')
+    window.location.href='mailto:diazalif807@gmail.com';
+
+  if(type==='github')
+    window.open('https://github.com/diazalif807-bit','_blank');
+
+  if(type==='ig')
+    window.open('https://www.instagram.com/lifxdiaz?igsh=aTAzOHlwcHRhbmp4','_blank');
+
+  if(type==='fb')
+    window.open('https://www.facebook.com/share/1Zs7wE1waP/','_blank');
+
+  if(type==='tt')
+    window.open('https://vm.tiktok.com/ZS9JLn6VBr49B-oIexM/','_blank');
+
+  if(type==='dc')
+    window.open('https://discord.gg/YbjkvBdWK','_blank');
+
+  if(type==='in')
+    window.open('https://linkedin.com','_blank');
+}
+</script>
+
+</body>
+</html>
