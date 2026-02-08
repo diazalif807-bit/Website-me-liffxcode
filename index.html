@@ -159,46 +159,4 @@ loop();
 </script>  
 
 </body>  
-</html>ionDuration=(6+Math.random()*4)+'s';loginStars.appendChild(s);}}  
-  
-function showStep(){  
-  stepContainer.innerHTML='';  
-  const step=steps[currentStep];  
-  step.choices.forEach((c,i)=>{  
-    const btn=document.createElement('button');  
-    btn.textContent=c;  
-    btn.onclick=()=>{checkStep(i)};  
-    stepContainer.appendChild(btn);  
-  });  
-}  
-  
-function checkStep(selected){  
-  const step=steps[currentStep];  
-  if(selected===step.correct){  
-    currentStep++;  
-    if(currentStep>=steps.length){  
-      window.open(step.link,'_blank');  
-      closeLogin();  
-    }else showStep();  
-  }else{closeLogin();}  
-}  
-
-// ANIMASI TEKS DESC LOOPING  
-const desc = document.querySelector('.desc');  
-const descTexts = ["⭐ Selamat Datang Boyy ⭐","Di","Website Saya"];  
-let descIdx = 0;  
-
-function showDescLoop(){  
-  desc.innerHTML = '';  
-  const span = document.createElement('span');  
-  span.textContent = descTexts[descIdx];  
-  desc.appendChild(span);  
-  descIdx = (descIdx + 1) % descTexts.length;  
-  setTimeout(showDescLoop, 3000);  
-}  
-
-showDescLoop();  
-</script>  
-  
-</body>  
 </html>
