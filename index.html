@@ -52,16 +52,13 @@ body::before{
   
 .logo-box img{width:100%;height:100%;object-fit:cover;border-radius:50%;}  
 
-/* ANIMASI TEKS DESC */  
 .desc{  
   font-size:15px;  
   font-weight:600;  
-  opacity:1;  
   margin-top:10px;  
   text-shadow:0 0 6px #000;  
-  position:relative;  
+  height:22px;  
   overflow:hidden;  
-  height:22px; /* sesuaikan tinggi teks */  
 }  
 
 .desc span{  
@@ -74,83 +71,51 @@ body::before{
 @keyframes fadeMove{  
   0% {opacity:0; transform:translateY(20px);}  
   10% {opacity:1; transform:translateY(0);}  
-  45% {opacity:1; transform:translateY(0);}  
+  45% {opacity:1;}  
   55% {opacity:0; transform:translateY(-20px);}  
-  100% {opacity:0; transform:translateY(-20px);}  
+  100% {opacity:0;}  
 }  
   
-.social{  
-  display:flex;justify-content:space-between;margin:24px 0;  
-}  
+.social{display:flex;justify-content:space-between;margin:24px 0;}  
   
 .social button{  
   font-size:22px;padding:12px;border-radius:14px;background:rgba(255,255,255,0.07);  
-  transition:.3s;cursor:pointer;width:50px;height:50px;display:flex;justify-content:center;align-items:center;  
-  box-shadow:0 0 8px rgba(0,242,255,0.5);border:none;  
+  cursor:pointer;width:50px;height:50px;display:flex;justify-content:center;align-items:center;  
+  box-shadow:0 0 8px rgba(0,242,255,0.5);border:none;transition:.3s;  
 }  
   
-.social button:hover{  
-  background:#00f2ff;color:black;transform:translateY(-4px) scale(1.1);  
-  box-shadow:0 0 16px #00f2ff;  
-}  
-  
-.social button i{font-size:22px;color:#00f2ff;}  
+.social button:hover{background:#00f2ff;color:black;transform:translateY(-4px) scale(1.1);}  
+.social button i{color:#00f2ff;}  
   
 .menu button{  
   width:100%;margin:9px 0;padding:14px;border:none;border-radius:16px;  
-  font-size:17px;font-weight:600;background:rgba(255,255,255,0.06);color:white;cursor:pointer;transition:.3s;  
-  box-shadow:0 0 6px rgba(0,242,255,0.5);  
+  font-size:17px;font-weight:600;background:rgba(255,255,255,0.06);color:white;  
+  cursor:pointer;transition:.3s;box-shadow:0 0 6px rgba(0,242,255,0.5);  
 }  
   
-.menu button i{margin-right:10px;font-size:18px;color:#00f2ff;}  
+.menu button i{margin-right:10px;color:#00f2ff;}  
+.menu button:hover{background:#00f2ff;color:black;transform:scale(1.03);}  
   
-.menu button:hover{background:#00f2ff;color:black;transform:scale(1.03);box-shadow:0 0 16px #00f2ff;}  
-  
-footer{margin-top:18px;font-size:13px;opacity:.55;z-index:1;position:relative;}  
-  
-.overlay{  
-  position:fixed;top:0;left:0;width:100%;height:100%;background:black;  
-  display:flex;justify-content:center;align-items:center;flex-direction:column;  
-  z-index:999;opacity:0;pointer-events:none;transition:opacity 0.5s;overflow:hidden;  
-}  
-  
-.overlay.active{opacity:1;pointer-events:auto;}  
-  
-#closeBtn{  
-  position:absolute;top:20px;right:20px;font-size:28px;color:#00f2ff;  
-  background:rgba(0,0,0,0.3);border:none;border-radius:50%;width:50px;height:50px;  
-  cursor:pointer;display:flex;justify-content:center;align-items:center;opacity:0;  
-  transition:opacity 0.3s, transform 0.3s;  
-}  
-  
-.overlay.active #closeBtn{opacity:1;transform:scale(1);}  
-#closeBtn:hover{background:#00f2ff;color:black;}  
-  
-#stepContainer{display:flex;flex-direction:column;gap:12px;width:80%;max-width:320px;text-align:center;}  
-#stepContainer button{padding:14px;font-size:16px;border-radius:12px;border:none;background:rgba(0,242,255,0.1);color:white;cursor:pointer;transition:.3s;box-shadow:0 0 6px #00f2ff;}  
-#stepContainer button:hover{background:#00f2ff;color:black;transform:scale(1.05);}  
-  
-.star{  
-  position:absolute;width:4px;height:4px;background:#00f2ff;border-radius:50%;  
-  opacity:0.8;animation-name:riseLoop;animation-timing-function:linear;animation-iteration-count:infinite;  
-}  
-  
-@keyframes riseLoop{0% {transform:translateY(100vh) scale(0);} 100% {transform:translateY(-20vh) scale(1);}}  
+footer{margin-top:18px;font-size:13px;opacity:.55;}  
 </style>  
 </head>  
+
 <body>  
-  
 <div class="container">  
-  <div class="logo-box"><img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png" alt="Logo"></div>  
-  <p class="desc"></p> <!-- Teks animasi akan muncul di sinil ah sangee nih kocokin dong dell -->  
-  
+
+  <div class="logo-box">
+    <img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png">
+  </div>  
+
+  <p class="desc"></p>  
+
   <div class="social">  
     <button onclick="go('github')"><i class="fab fa-github"></i></button>  
     <button onclick="go('ig')"><i class="fab fa-instagram"></i></button>  
     <button onclick="go('fb')"><i class="fab fa-facebook"></i></button>  
     <button onclick="go('tt')"><i class="fab fa-tiktok"></i></button>  
     <button onclick="go('dc')"><i class="fab fa-discord"></i></button>  
-    <button onclick="showIntro()"><i class="fab fa-linkedin"></i></button>  
+    <button onclick="go('ddos')"><i class="fas fa-globe"></i></button>  
   </div>  
   
   <div class="menu">  
@@ -158,93 +123,43 @@ footer{margin-top:18px;font-size:13px;opacity:.55;z-index:1;position:relative;}
     <button onclick="go('youtube')"><i class="fab fa-youtube"></i>YouTube</button>  
     <button onclick="go('wa')"><i class="fab fa-whatsapp"></i>WhatsApp</button>  
     <button onclick="go('email')"><i class="fas fa-envelope"></i>Email</button>  
-    <button onclick="showLogin()"><i class="fas fa-sign-in-alt"></i>Login Menu</button>  
+    <button onclick="go('ddos')"><i class="fas fa-globe"></i>Website DDoS Tools</button>  
   </div>  
   
   <footer>© lifffXcodee</footer>  
 </div>  
-  
-<!-- OVERLAY PERKENALAN -->  
-<div class="overlay" id="introOverlay">  
-  <button id="closeBtn" onclick="closeIntro()">&times;</button>  
-  <div id="introText"></div>  
-</div>  
-  
-<!-- OVERLAY LOGIN 5 LANGKAH -->  
-<div class="overlay" id="loginOverlay">  
-  <button id="closeBtn" onclick="closeLogin()">&times;</button>  
-  <div id="loginStars"></div>  
-  <div id="stepContainer"></div>  
-</div>  
-  
+
 <script>  
-// LINK  
 function go(type){  
-  if(type==='waChannel') window.open('https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q','_blank');  
-  if(type==='youtube') window.open('https://www.youtube.com/@AlifDiaz-v8v','_blank');  
-  if(type==='wa') window.open('https://wa.me/6282319663436','_blank');  
-  if(type==='email') window.location.href='mailto:diazalif807@gmail.com';  
-  if(type==='github') window.open('https://github.com/diazalif807-bit','_blank');  
-  if(type==='ig') window.open('https://www.instagram.com/lifxdiaz?igsh=aTAzOHlwcHRhbmp4','_blank');  
-  if(type==='fb') window.open('https://www.facebook.com/share/1Zs7wE1waP/','_blank');  
-  if(type==='tt') window.open('https://vm.tiktok.com/ZS9JLn6VBr49B-oIexM/','_blank');  
-  if(type==='dc') window.open('https://discord.gg/YbjkvBdWK','_blank');  
+  if(type==='waChannel') window.open('https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q');  
+  if(type==='youtube') window.open('https://www.youtube.com/@AlifDiaz-v8v');  
+  if(type==='wa') window.open('https://wa.me/6282319663436');  
+  if(type==='email') location.href='mailto:diazalif807@gmail.com';  
+  if(type==='github') window.open('https://github.com/diazalif807-bit');  
+  if(type==='ig') window.open('https://www.instagram.com/lifxdiaz');  
+  if(type==='fb') window.open('https://www.facebook.com');  
+  if(type==='tt') window.open('https://tiktok.com');  
+  if(type==='dc') window.open('https://discord.gg/YbjkvBdWK');  
+  if(type==='ddos') window.open('https://ddos-lifx-codet-z.vercel.app');  
 }  
-  
-// OVERLAY PERKENALAN  
-const introOverlay=document.getElementById('introOverlay');  
-const introText=document.getElementById('introText');  
-  
-function showIntro(){  
-  introOverlay.classList.add('active');introText.textContent='';createStars(40);  
-  const text=`Yo, wassup gengs! 😎  
-Perkenalkan, aku @LiffxXcode, si tukang ngoprek digital yang kadang serius, tapi lebih sering… ya gitu deh, santai aja. 💻✨  
-Di dunia coding, gue kadang bikin script keren, kadang cuma bikin AI ngambek karena nggak ngerti perintah gue.  
-  
-😅 Tapi untungnya, sekarang ada AI yang kadang bantuin gue supaya nggak terlalu nyasar di labirin kode—iya, beneran,   
-  
-AI gue ini kayak sidekick yang setia, walau kadang lebih pinter dari gue sendiri. 🤖💥  
-  
-Di sini lo bakal nemuin karya gue yang random tapi asik, mulai dari coding gokil, desain visual yang lumayan cakep, sampe tips-tips receh tapi berguna biar nggak nyasar pas ngoding tengah malem. 🚀  
-  
-Jadi kalau lo pengen belajar, ketawa bareng, atau sekadar liat gue ribet sama AI-nya, follow aja, biar nggak ketinggalan drama digital kita.  
-  
-Stay cool, keep coding, dan jangan lupa… AI gue kadang suka curhat juga, tapi jangan bilang siapa-siapa ya! 😎  
-@LiffxXcode out. ✨`;  
-  let i=0;  
-  function typeWriter(){if(i<text.length){introText.textContent+=text.charAt(i);i++;setTimeout(typeWriter,50);}else{setTimeout(closeIntro,3000);}}  
-  typeWriter();  
+
+const desc = document.querySelector('.desc');  
+const texts = ["⭐ Selamat Datang Boyy ⭐","Di","Website Saya"];  
+let i=0;  
+
+function loop(){  
+  desc.innerHTML='';  
+  const s=document.createElement('span');  
+  s.textContent=texts[i];  
+  desc.appendChild(s);  
+  i=(i+1)%texts.length;  
+  setTimeout(loop,3000);  
 }  
-  
-function closeIntro(){introOverlay.classList.remove('active');document.querySelectorAll('.star').forEach(s=>s.remove());}  
-  
-// BINTANG LOOPING  
-function createStars(num){for(let i=0;i<num;i++){const star=document.createElement('div');star.classList.add('star');star.style.left=Math.random()*100+'vw';star.style.width=star.style.height=(2+Math.random()*3)+'px';star.style.animationDuration=(6+Math.random()*4)+'s';introOverlay.appendChild(star);}}  
-  
-// LOGIN 5 LANGKAH  
-const loginOverlay=document.getElementById('loginOverlay');  
-const stepContainer=document.getElementById('stepContainer');  
-const loginStars=document.getElementById('loginStars');  
-let currentStep=0;  
-  
-const steps=[  
-  {choices:['A','B','C','D'],correct:2},  
-  {choices:['E','F','G','H'],correct:0},  
-  {choices:['I','J','K','L'],correct:1},  
-  {choices:['M','N','O','P'],correct:3},  
-  {choices:['Q','R','S','T'],correct:0,link:'https://whatsapp.com/channel/0029VbBdE3K9cDDSRMl9TS2e'}  
-];  
-  
-function showLogin(){  
-  loginOverlay.classList.add('active');  
-  createStarsLogin(30);  
-  currentStep=0;  
-  showStep();  
-}  
-  
-function closeLogin(){loginOverlay.classList.remove('active');stepContainer.innerHTML='';loginStars.innerHTML='';}  
-  
-function createStarsLogin(num){for(let i=0;i<num;i++){const s=document.createElement('div');s.classList.add('star');s.style.left=Math.random()*100+'vw';s.style.width=s.style.height=(2+Math.random()*3)+'px';s.style.animationDuration=(6+Math.random()*4)+'s';loginStars.appendChild(s);}}  
+loop();  
+</script>  
+
+</body>  
+</html>ionDuration=(6+Math.random()*4)+'s';loginStars.appendChild(s);}}  
   
 function showStep(){  
   stepContainer.innerHTML='';  
