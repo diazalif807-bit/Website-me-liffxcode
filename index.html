@@ -9,275 +9,774 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">  
   
 <style>  
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}  
-  
-body{  
-  height:100vh;  
-  background:url('https://cdn.phototourl.com/uploads/2026-02-08-450e82ab-21eb-4562-ae40-33f6ca0c489a.png') no-repeat center center/cover;  
-  display:flex;  
-  justify-content:center;  
-  align-items:center;  
-  color:white;  
-  overflow:hidden;  
-  position:relative;  
-}  
-  
-body::before{  
-  content:'';  
-  position:absolute;top:0;left:0;width:100%;height:100%;  
-  background:rgba(0,0,0,0.35);  
-  backdrop-filter:blur(8px);  
-  z-index:0;  
-}  
-  
-.container{  
-  width:360px;  
-  text-align:center;  
-  position:relative;  
-  z-index:1;  
-}  
-  
-.logo-box{  
-  width:180px;  
-  height:180px;  
-  margin:0 auto 14px;  
-  border:4px solid #00f2ff;  
-  border-radius:50%;  
-  display:flex;  
-  justify-content:center;  
-  align-items:center;  
-  overflow:hidden;  
-  box-shadow:0 0 12px #00f2ff,0 0 28px rgba(0,242,255,.7);  
-  animation: pulse 2s infinite;  
+/* RESET & VARIABLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* OPTIMASI PERFORMANCE */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+}
+
+/* =============== VARIABEL TEMA =============== */
+:root {
+  --bg-overlay: rgba(0, 0, 0, 0.35);
+  --blur-amount: 8px;
+  --accent-color: #00f2ff;
+  --accent-glow: rgba(0, 242, 255, 0.7);
+  --text-color: white;
+  --button-bg: rgba(255, 255, 255, 0.07);
+  --button-border: rgba(0, 242, 255, 0.2);
+  --shadow-color: rgba(0, 242, 255, 0.5);
+  --logo-border: #00f2ff;
+  --online-color: #00ff00;
+  --offline-color: #ff0000;
+  --transition-speed: 0.5s;
+}
+
+/* TEMA OFFLINE - GRAYSCALE */
+.theme-offline {
+  --bg-overlay: rgba(30, 30, 30, 0.8);
+  --blur-amount: 2px;
+  --accent-color: #888888 !important;
+  --accent-glow: rgba(136, 136, 136, 0.3) !important;
+  --text-color: #cccccc !important;
+  --button-bg: rgba(80, 80, 80, 0.2) !important;
+  --button-border: rgba(136, 136, 136, 0.3) !important;
+  --shadow-color: rgba(136, 136, 136, 0.2) !important;
+  --logo-border: #888888 !important;
+  --online-color: #666666 !important;
+  --offline-color: #666666 !important;
+}
+
+/* =============== TRANSISI GLOBAL =============== */
+body {
+  height: 100vh;  
+  background: url('https://cdn.phototourl.com/uploads/2026-02-08-450e82ab-21eb-4562-ae40-33f6ca0c489a.png') no-repeat center center/cover;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  color: var(--text-color);  
+  overflow: hidden;  
+  position: relative;
+  transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }  
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 12px #00f2ff, 0 0 28px rgba(0,242,255,.7); }
-  50% { box-shadow: 0 0 20px #00f2ff, 0 0 40px rgba(0,242,255,.9); }
-  100% { box-shadow: 0 0 12px #00f2ff, 0 0 28px rgba(0,242,255,.7); }
+body::before {  
+  content: '';  
+  position: absolute;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 100%;  
+  background: var(--bg-overlay);  
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+  z-index: 0;
+  transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              backdrop-filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============== LOADING SCREEN =============== */
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0c0f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, visibility;
+}
+
+.loader {
+  text-align: center;
+  transform: translateZ(0);
+}
+
+.cyber-text {
+  font-size: clamp(32px, 8vw, 48px);
+  font-weight: 800;
+  color: #00f2ff;
+  text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+  letter-spacing: 6px;
+  animation: softGlow 2s infinite ease-in-out;
+  transform: translateZ(0);
+  line-height: 1.2;
+}
+
+@keyframes softGlow {
+  0%, 100% { text-shadow: 0 0 15px rgba(0, 242, 255, 0.5); }
+  50% { text-shadow: 0 0 25px rgba(0, 242, 255, 0.8); }
+}
+
+.loader-bar-container {
+  width: 260px;
+  height: 3px;
+  background: rgba(0, 242, 255, 0.1);
+  margin: 24px auto 0;
+  border-radius: 4px;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.loader-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #00f2ff, #4dffff);
+  border-radius: 4px;
+  animation: progressBar 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform: translateZ(0);
+  will-change: width;
+}
+
+@keyframes progressBar {
+  0% { width: 0%; }
+  20% { width: 35%; }
+  50% { width: 65%; }
+  80% { width: 90%; }
+  100% { width: 100%; }
+}
+
+.loader-percentage {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  transform: translateZ(0);
+}
+
+.loader-percentage span {
+  color: #00f2ff;
+  font-weight: 700;
+}
+
+.loader-sub {
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transform: translateZ(0);
+}
+
+/* =============== MAIN CONTAINER =============== */
+.container {
+  width: 360px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.container.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============== LOGO BOX =============== */
+.logo-box {  
+  width: 160px;  
+  height: 160px;  
+  margin: 0 auto 10px;  
+  border: 3px solid var(--logo-border);  
+  border-radius: 50%;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  overflow: hidden;  
+  box-shadow: 0 0 15px var(--shadow-color);  
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+
+.logo-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
   
-.logo-box img{width:100%;height:100%;object-fit:cover;border-radius:50%;}  
+.logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: filter var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-.desc{  
-  font-size:15px;  
-  font-weight:600;  
-  margin-top:10px;  
-  text-shadow:0 0 6px #000;  
-  height:22px;  
-  overflow:hidden;  
-}  
+/* Filter grayscale saat offline */
+.theme-offline .logo-box img {
+  filter: grayscale(100%);
+}
 
-.desc span{  
-  display:inline-block;  
-  opacity:0;  
-  transform:translateY(20px);  
-  animation:fadeMove 3s ease-in-out infinite;  
-}  
+/* =============== TYPING ANIMATION =============== */
+.typing-container {
+  margin-top: 8px;
+  min-height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-@keyframes fadeMove{  
-  0% {opacity:0; transform:translateY(20px);}  
-  10% {opacity:1; transform:translateY(0);}  
-  45% {opacity:1;}  
-  55% {opacity:0; transform:translateY(-20px);}  
-  100% {opacity:0;}  
-}  
+.typing-text {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent-color);
+  text-shadow: 0 0 8px var(--accent-glow);
+  position: relative;
+  display: inline-block;
+  transform: translateZ(0);
+  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1),
+              text-shadow var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.typing-text::after {
+  content: '|';
+  position: absolute;
+  right: -8px;
+  animation: cursor 1s step-end infinite;
+}
+
+@keyframes cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* =============== STATUS BADGE =============== */
+#statusContainer {
+  margin-top: 10px;
+  min-height: 32px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform, background, border-color, color;
+}
 
 .status-online {
-  display: inline-block;
-  margin-top: 5px;
-  padding: 4px 12px;
-  background: rgba(0, 255, 0, 0.2);
-  border: 1px solid #00ff00;
-  border-radius: 20px;
-  font-size: 12px;
-  color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  background: rgba(0, 255, 0, 0.12);
+  border: 1px solid rgba(0, 255, 0, 0.4);
+  color: #a3ffa3;
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.1);
 }
 
 .status-offline {
-  display: inline-block;
+  background: rgba(255, 0, 0, 0.12);
+  border: 1px solid rgba(255, 0, 0, 0.4);
+  color: #ffa3a3;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.1);
+}
+
+/* Tema offline untuk status badge */
+.theme-offline .status-online,
+.theme-offline .status-offline {
+  background: rgba(100, 100, 100, 0.15);
+  border: 1px solid rgba(136, 136, 136, 0.4);
+  color: #b0b0b0;
+  box-shadow: 0 0 12px rgba(136, 136, 136, 0.1);
+}
+
+/* =============== PROTECTION BADGE =============== */
+.protection-badge {
   margin-top: 5px;
-  padding: 4px 12px;
-  background: rgba(255, 0, 0, 0.2);
-  border: 1px solid #ff0000;
-  border-radius: 20px;
-  font-size: 12px;
-  color: #ff0000;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-}
-  
-.social{display:flex;justify-content:space-between;margin:24px 0;}  
-  
-.social button{  
-  font-size:22px;padding:12px;border-radius:14px;background:rgba(255,255,255,0.07);  
-  cursor:pointer;width:50px;height:50px;display:flex;justify-content:center;align-items:center;  
-  box-shadow:0 0 8px rgba(0,242,255,0.5);border:none;transition:.3s;  
-  position: relative;
-  overflow: hidden;
-}  
-
-.social button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(0, 242, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  font-size: 10px;
+  color: var(--accent-color);
+  opacity: 0.7;
+  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.social button:active::before {
-  width: 100px;
-  height: 100px;
+.theme-offline .protection-badge {
+  color: #888888;
 }
-  
-.social button:hover{background:#00f2ff;color:black;transform:translateY(-4px) scale(1.1);}  
-.social button:hover i{color:black;}  
-.social button i{color:#00f2ff; transition: .3s;}  
 
-/* Anti-DDoS & Rate Limiting */
-.social button:disabled, .menu button:disabled {
-  opacity: 0.5;
+/* =============== SOCIAL & MENU BUTTONS =============== */
+.social, .menu, footer, .ddos-protection {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.melt-animation {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.social { transition-delay: 0.1s; }
+.menu { transition-delay: 0.2s; }
+footer { transition-delay: 0.3s; }
+.ddos-protection { transition-delay: 0.4s; }
+#statusBadge { transition-delay: 0.05s; }
+
+.social {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.social button {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 14px;
+  background: var(--button-bg);
+  cursor: pointer;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--button-border);
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--accent-color);
+  transform: translateZ(0);
+}
+
+.social button:hover {
+  background: var(--accent-color);
+  color: black;
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.theme-offline .social button:hover {
+  background: #666666;
+  border-color: #888888;
+  color: white;
+}
+
+.social button i {
+  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social button:hover i {
+  color: black;
+}
+
+.theme-offline .social button:hover i {
+  color: white;
+}
+
+.menu button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  background: var(--button-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--button-border);
+  text-align: left;
+  padding-left: 20px;
+  transform: translateZ(0);
+}
+
+.menu button i {
+  margin-right: 12px;
+  color: var(--accent-color);
+  width: 20px;
+  text-align: center;
+  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu button:hover {
+  background: var(--accent-color);
+  color: black;
+  border-color: var(--accent-color);
+  transform: translateX(3px);
+}
+
+.menu button:hover i {
+  color: black;
+}
+
+.theme-offline .menu button:hover {
+  background: #666666;
+  border-color: #888888;
+  color: white;
+}
+
+.theme-offline .menu button:hover i {
+  color: white;
+}
+
+/* DISABLED STATE */
+button:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
-  transform: none !important;
   pointer-events: none;
-}
-  
-.menu button{  
-  width:100%;margin:9px 0;padding:14px;border:none;border-radius:16px;  
-  font-size:17px;font-weight:600;background:rgba(255,255,255,0.06);color:white;  
-  cursor:pointer;transition:.3s;box-shadow:0 0 6px rgba(0,242,255,0.5);
-  position: relative;
-  overflow: hidden;
-}  
-
-.menu button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(0, 242, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  filter: grayscale(100%);
 }
 
-.menu button:active::before {
-  width: 200px;
-  height: 200px;
-}
-  
-.menu button i{margin-right:10px;color:#00f2ff;}  
-.menu button:hover{background:#00f2ff;color:black;transform:scale(1.03);}  
-.menu button:hover i{color:black;}  
-
-footer{margin-top:18px;font-size:13px;opacity:.55;}  
-
-/* Anti-Clickjacking */
-iframe {
-  display: none !important;
-}
-
-/* Rate Limiting Indicator */
+/* RATE ALERT */
 .rate-alert {
-  color: #ffaa00;
+  color: #ffd700;
   font-size: 12px;
-  margin-top: 5px;
-  animation: blink 1s infinite;
+  margin: 8px 0;
+  padding: 6px;
+  background: rgba(255, 215, 0, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  animation: fadePulse 2s infinite;
 }
 
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+.theme-offline .rate-alert {
+  color: #b0b0b0;
+  border-color: #888888;
+  background: rgba(100, 100, 100, 0.1);
 }
 
-/* Watermark Anti-DDoS */
+@keyframes fadePulse {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.6; }
+}
+
+footer {
+  margin-top: 16px;
+  font-size: 12px;
+  opacity: 0.5;
+  color: var(--text-color);
+  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .ddos-protection {
   position: fixed;
-  bottom: 5px;
-  right: 5px;
-  font-size: 8px;
-  color: rgba(255,255,255,0.2);
+  bottom: 8px;
+  right: 12px;
+  font-size: 9px;
+  color: var(--accent-color);
+  opacity: 0.25;
   z-index: 9999;
+  letter-spacing: 1px;
+  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-offline .ddos-protection {
+  color: #888888;
+}
+
+/* OFFLINE MESSAGE */
+#offlineMsg {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(100, 100, 100, 0.15);
+  border: 1px solid rgba(136, 136, 136, 0.4);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #b0b0b0;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* TRANSISI TEMA GLOBAL */
+body, 
+body::before,
+.logo-box,
+.logo-box img,
+.typing-text,
+.protection-badge,
+.social button,
+.social button i,
+.menu button,
+.menu button i,
+.status-badge,
+footer,
+.ddos-protection {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* HARDWARE ACCELERATION */
+.cyber-text,
+.loader-bar,
+.container,
+.logo-box,
+button,
+.status-badge,
+.social button,
+.menu button {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+/* RESPONSIVE */
+@media (max-width: 400px) {
+  .container { width: 320px; }
+  .logo-box { width: 140px; height: 140px; }
+  .cyber-text { font-size: 36px; }
+  .loader-bar-container { width: 220px; }
 }
 </style>  
 </head>  
 
-<body>  
-<div class="container">  
+<body id="mainBody">  
+<!-- LOADING SCREEN -->
+<div class="loader-wrapper" id="loaderWrapper">
+  <div class="loader">
+    <div class="cyber-text">LIFXXCODETZ</div>
+    <div class="loader-bar-container">
+      <div class="loader-bar" id="progressBar"></div>
+    </div>
+    <div class="loader-percentage">
+      <span id="progressPercent">0</span>% LOADED
+    </div>
+    <div class="loader-sub">
+      <i class="fas fa-shield"></i> SECURE SYSTEM v2.0
+    </div>
+  </div>
+</div>
 
+<!-- MAIN CONTAINER -->
+<div class="container" id="mainContainer">
   <div class="logo-box">
-    <img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png" alt="LIFXCODE Logo">
+    <img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png" alt="LIFXCODE Logo" loading="eager">
   </div>  
 
-  <p class="desc"></p>
-  
-  <!-- Status Online/Offline -->
-  <div id="statusContainer" style="margin-top: 10px; min-height: 30px;">
-    <span id="statusBadge" class="status-offline">📡 MENDETEKSI JARINGAN...</span>
+  <!-- TYPING ANIMATION -->
+  <div class="typing-container">
+    <span id="typingElement" class="typing-text"></span>
   </div>
   
-  <!-- Anti-DDoS Protection Badge -->
-  <div style="margin-top: 5px; font-size: 10px; color: rgba(0,242,255,0.7);">
-    <i class="fas fa-shield-haltered"></i> PROTECTED MODE ACTIVE
+  <!-- STATUS BADGE -->
+  <div id="statusContainer">
+    <span id="statusBadge" class="status-badge status-offline">📡 MENDETEKSI JARINGAN...</span>
   </div>
   
+  <!-- PROTECTION BADGE -->
+  <div class="protection-badge">
+    <i class="fas fa-shield-alt"></i> PROTECTED MODE
+  </div>
+  
+  <!-- SOCIAL BUTTONS -->
   <div class="social">  
-    <button onclick="secureGo('github')" id="btn-github"><i class="fab fa-github"></i></button>  
-    <button onclick="secureGo('ig')" id="btn-ig"><i class="fab fa-instagram"></i></button>  
-    <button onclick="secureGo('fb')" id="btn-fb"><i class="fab fa-facebook"></i></button>  
-    <button onclick="secureGo('tt')" id="btn-tt"><i class="fab fa-tiktok"></i></button>  
-    <button onclick="secureGo('dc')" id="btn-dc"><i class="fab fa-discord"></i></button>  
-    <button onclick="secureGo('ddos')" id="btn-ddos"><i class="fas fa-globe"></i></button>  
+    <button onclick="secureGo('github')"><i class="fab fa-github"></i></button>  
+    <button onclick="secureGo('ig')"><i class="fab fa-instagram"></i></button>  
+    <button onclick="secureGo('fb')"><i class="fab fa-facebook"></i></button>  
+    <button onclick="secureGo('tt')"><i class="fab fa-tiktok"></i></button>  
+    <button onclick="secureGo('dc')"><i class="fab fa-discord"></i></button>  
+    <button onclick="secureGo('ddos')"><i class="fas fa-globe"></i></button>  
   </div>  
   
+  <!-- MENU BUTTONS -->
   <div class="menu">  
-    <button onclick="secureGo('waChannel')" id="btn-waChannel"><i class="fab fa-whatsapp"></i>Saluran WhatsApp</button>  
-    <button onclick="secureGo('youtube')" id="btn-youtube"><i class="fab fa-youtube"></i>YouTube</button>  
-    <button onclick="secureGo('wa')" id="btn-wa"><i class="fab fa-whatsapp"></i>WhatsApp</button>  
-    <button onclick="secureGo('email')" id="btn-email"><i class="fas fa-envelope"></i>Email</button>  
-    <button onclick="secureGo('ddos')" id="btn-website2"><i class="fas fa-globe"></i>Website ke 2 LIFXXCODETZ</button>  
+    <button onclick="secureGo('waChannel')"><i class="fab fa-whatsapp"></i>Saluran WhatsApp</button>  
+    <button onclick="secureGo('youtube')"><i class="fab fa-youtube"></i>YouTube</button>  
+    <button onclick="secureGo('wa')"><i class="fab fa-whatsapp"></i>WhatsApp</button>  
+    <button onclick="secureGo('email')"><i class="fas fa-envelope"></i>Email</button>  
+    <button onclick="secureGo('ddos')"><i class="fas fa-globe"></i>Website ke 2 LIFXXCODETZ</button>  
   </div>  
   
-  <footer>© lifffXcodeeTz • ANTI-DDOS</footer>  
+  <footer>© 2026 LIFXXCODETZ • ANTI-DDOS</footer>  
 </div>  
 
+<!-- WATERMARK -->
 <div class="ddos-protection">
-  <i class="fas fa-shield"></i> DDoS Protection v2.0 | Session: <span id="sessionId">XXXX</span>
+  <i class="fas fa-shield"></i> SESSION: <span id="sessionId">XXXX</span>
 </div>
 
 <script>  
-// ==================== ANTI-DDOS & RATE LIMITING SYSTEM ====================
-const RATE_LIMIT = 5; // Max 5 klik per 10 detik
-const TIME_WINDOW = 10000; // 10 detik
+// =============== OPTIMASI LOADING SCREEN ===============
+let progressInterval;
+let percent = 0;
 
-let clickTimestamps = [];
+function updateProgress() {
+  const progressBar = document.getElementById('progressBar');
+  const percentEl = document.getElementById('progressPercent');
+  
+  if (!progressBar || !percentEl) return;
+  
+  if (percent < 20) percent = 20;
+  else if (percent < 50) percent = 50;
+  else if (percent < 80) percent = 80;
+  else if (percent < 95) percent = 95;
+  
+  progressBar.style.width = percent + '%';
+  percentEl.textContent = percent;
+}
+
+progressInterval = setInterval(() => {
+  if (percent < 95) {
+    percent += Math.floor(Math.random() * 3) + 1;
+    if (percent > 95) percent = 95;
+    updateProgress();
+  }
+}, 100);
+
+// =============== TYPING ANIMATION ===============
+const typingElement = document.getElementById('typingElement');
+const textToType = "LIFXXCODETZ";
+let charIndex = 0;
+
+function typeWriter() {
+  if (charIndex < textToType.length) {
+    typingElement.textContent += textToType.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeWriter, 120);
+  }
+}
+
+// =============== LOADING COMPLETE ===============
+window.addEventListener('load', function() {
+  percent = 100;
+  updateProgress();
+  clearInterval(progressInterval);
+  
+  setTimeout(function() {
+    const loader = document.getElementById('loaderWrapper');
+    loader.style.opacity = '0';
+    loader.style.visibility = 'hidden';
+    
+    const container = document.getElementById('mainContainer');
+    container.classList.add('show');
+    
+    setTimeout(() => {
+      typeWriter();
+    }, 400);
+    
+    setTimeout(() => {
+      startMeltAnimation();
+    }, 1000);
+    
+  }, 2200);
+});
+
+// =============== ANIMASI MENU PENCAIRAN ===============
+function startMeltAnimation() {
+  const elements = [
+    document.getElementById('statusBadge'),
+    document.querySelector('.social'),
+    document.querySelector('.menu'),
+    document.querySelector('footer'),
+    document.querySelector('.ddos-protection')
+  ];
+  
+  elements.forEach(el => {
+    if (el) el.classList.add('melt-animation');
+  });
+}
+
+// =============== SISTEM TEMA ONLINE/OFFLINE ===============
+const mainBody = document.getElementById('mainBody');
 let isOnline = navigator.onLine;
-let sessionId = Math.random().toString(36).substring(2, 8).toUpperCase();
+let isTransitioning = false;
+
+// Fungsi untuk mengupdate tema berdasarkan status online
+function updateTheme() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+  
+  isOnline = navigator.onLine;
+  const statusBadge = document.getElementById('statusBadge');
+  const buttons = document.querySelectorAll('button');
+  
+  // Hapus class tema offline
+  if (isOnline) {
+    mainBody.classList.remove('theme-offline');
+    
+    // Update status badge
+    statusBadge.className = 'status-badge status-online melt-animation';
+    statusBadge.innerHTML = '<i class="fas fa-wifi"></i> ONLINE • DATA AKTIF';
+    
+    // Enable buttons
+    buttons.forEach(btn => btn.disabled = false);
+    
+    // Hapus pesan offline
+    const offlineMsg = document.getElementById('offlineMsg');
+    if (offlineMsg) {
+      offlineMsg.style.opacity = '0';
+      setTimeout(() => offlineMsg.remove(), 500);
+    }
+    
+    // Update protection badge
+    document.querySelector('.protection-badge i').className = 'fas fa-shield-alt';
+    
+  } else {
+    mainBody.classList.add('theme-offline');
+    
+    // Update status badge
+    statusBadge.className = 'status-badge status-offline melt-animation';
+    statusBadge.innerHTML = '<i class="fas fa-wifi-slash"></i> OFFLINE • DATA MATI';
+    
+    // Disable buttons
+    buttons.forEach(btn => btn.disabled = true);
+    
+    // Tampilkan pesan offline dengan animasi
+    if (!document.getElementById('offlineMsg')) {
+      setTimeout(() => {
+        const msg = document.createElement('div');
+        msg.id = 'offlineMsg';
+        msg.style.opacity = '0';
+        msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> MODE OFFLINE - Aktifkan data seluler/internet untuk mengakses fitur';
+        document.querySelector('.container').appendChild(msg);
+        
+        setTimeout(() => {
+          msg.style.opacity = '1';
+        }, 50);
+      }, 300);
+    }
+    
+    // Update protection badge
+    document.querySelector('.protection-badge i').className = 'fas fa-shield';
+  }
+  
+  // Selesaikan transisi
+  setTimeout(() => {
+    isTransitioning = false;
+  }, 600);
+}
+
+// =============== ANTI-DDOS & RATE LIMIT ===============
+const RATE_LIMIT = 5;
+const TIME_WINDOW = 10000;
+let clickTimestamps = [];
+const sessionId = Math.random().toString(36).substring(2, 7).toUpperCase();
 document.getElementById('sessionId').textContent = sessionId;
 
-// Proteksi dari frame (Clickjacking)
+// Proteksi iframe
 if (window.top !== window.self) {
   window.top.location = window.self.location;
 }
 
 // Disable klik kanan
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-  return false;
-});
+document.addEventListener('contextmenu', e => e.preventDefault());
 
-// Rate Limiting Function
 function checkRateLimit() {
   const now = Date.now();
-  clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < TIME_WINDOW);
+  clickTimestamps = clickTimestamps.filter(t => now - t < TIME_WINDOW);
   
   if (clickTimestamps.length >= RATE_LIMIT) {
     showRateAlert();
@@ -289,138 +788,94 @@ function checkRateLimit() {
 }
 
 function showRateAlert() {
-  const alertDiv = document.createElement('div');
-  alertDiv.className = 'rate-alert';
-  alertDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> TERLALU CEPAT! Mohon tunggu 10 detik';
-  alertDiv.id = 'rateAlert';
-  
   if (!document.getElementById('rateAlert')) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'rate-alert';
+    alertDiv.id = 'rateAlert';
+    alertDiv.style.opacity = '0';
+    alertDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> TERLALU CEPAT! Tunggu 10 detik';
     document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.social'));
-  }
-  
-  setTimeout(() => {
-    const alert = document.getElementById('rateAlert');
-    if (alert) alert.remove();
-  }, 3000);
-}
-
-// ==================== ONLINE/OFFLINE DETECTION SYSTEM ====================
-function updateOnlineStatus() {
-  isOnline = navigator.onLine;
-  const statusBadge = document.getElementById('statusBadge');
-  const buttons = document.querySelectorAll('button');
-  
-  if (isOnline) {
-    statusBadge.className = 'status-online';
-    statusBadge.innerHTML = '<i class="fas fa-wifi"></i> ONLINE • DATA AKTIF';
     
-    // Enable semua button
-    buttons.forEach(btn => {
-      btn.disabled = false;
-    });
+    setTimeout(() => {
+      alertDiv.style.opacity = '1';
+    }, 50);
     
-  } else {
-    statusBadge.className = 'status-offline';
-    statusBadge.innerHTML = '<i class="fas fa-wifi-slash"></i> OFFLINE • DATA MATI';
-    
-    // Disable semua button
-    buttons.forEach(btn => {
-      btn.disabled = true;
-    });
-    
-    // Tampilkan pesan offline
-    const offlineMsg = document.createElement('div');
-    offlineMsg.style.color = 'red';
-    offlineMsg.style.marginTop = '10px';
-    offlineMsg.style.padding = '10px';
-    offlineMsg.style.background = 'rgba(255,0,0,0.1)';
-    offlineMsg.style.borderRadius = '10px';
-    offlineMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> KONEKSI DATA MATI! Website hanya bisa diakses dengan DATA SELULER/INTERNET';
-    offlineMsg.id = 'offlineMsg';
-    
-    if (!document.getElementById('offlineMsg')) {
-      document.querySelector('.container').appendChild(offlineMsg);
-    }
+    setTimeout(() => {
+      alertDiv.style.opacity = '0';
+      setTimeout(() => {
+        const alert = document.getElementById('rateAlert');
+        if (alert) alert.remove();
+      }, 500);
+    }, 2800);
   }
 }
 
-// Secure function dengan rate limit dan online check
 function secureGo(type) {  
-  // Cek status online
   if (!navigator.onLine) {
     alert('⚠️ KONEKSI DATA MATI! Aktifkan data seluler/internet Anda terlebih dahulu.');
     return;
   }
   
-  // Rate limiting
-  if (!checkRateLimit()) {
-    return;
-  }
+  if (!checkRateLimit()) return;
   
-  // Proteksi ekstra: random delay untuk hindari automated request
-  setTimeout(() => {
-    // Validasi type
-    const urls = {
-      waChannel: 'https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q',
-      youtube: 'https://www.youtube.com/@AlifDiaz-v8v',
-      wa: 'https://wa.me/6282319663436',
-      email: 'mailto:diazalif807@gmail.com',
-      github: 'https://github.com/diazalif807-bit',
-      ig: 'https://www.instagram.com/lifxdiaz',
-      fb: 'https://www.facebook.com',
-      tt: 'https://tiktok.com',
-      dc: 'https://discord.gg/YbjkvBdWK',
-      ddos: 'https://ddos-lifx-codet-z.vercel.app'
-    };
+  const urls = {
+    waChannel: 'https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q',
+    youtube: 'https://www.youtube.com/@AlifDiaz-v8v',
+    wa: 'https://wa.me/6282319663436',
+    email: 'mailto:diazalif807@gmail.com',
+    github: 'https://github.com/diazalif807-bit',
+    ig: 'https://www.instagram.com/lifxdiaz',
+    fb: 'https://www.facebook.com',
+    tt: 'https://tiktok.com',
+    dc: 'https://discord.gg/YbjkvBdWK',
+    ddos: 'https://ddos-lifx-codet-z.vercel.app'
+  };
+  
+  if (urls[type]) {
+    // Efek klik
+    const btn = event.currentTarget;
+    btn.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      btn.style.transform = '';
+    }, 200);
     
-    if (urls[type]) {
-      if (type === 'email') {
-        location.href = urls[type];
-      } else {
-        window.open(urls[type], '_blank');
-      }
-    }
-  }, Math.random() * 200); // Random delay 0-200ms
-}  
+    setTimeout(() => {
+      type === 'email' ? location.href = urls[type] : window.open(urls[type], '_blank');
+    }, 100);
+  }
+}
 
-// ==================== TEKS ANIMASI ====================
-const desc = document.querySelector('.desc');  
-const texts = ["🔒 ANTI-DDOS SECURE MODE 🔒","⭐ Selamat Datang Boyy ⭐","LIFXXCODETZ","PROTECTED BY RATE LIMIT"];  
-let i = 0;  
-
-function loop(){  
-  desc.innerHTML='';  
-  const s=document.createElement('span');  
-  s.textContent=texts[i];  
-  desc.appendChild(s);  
-  i=(i+1)%texts.length;  
-  setTimeout(loop,3000);  
-}  
-loop();
-
-// ==================== EVENT LISTENERS ====================
-window.addEventListener('load', function() {
-  updateOnlineStatus();
-});
-
+// =============== EVENT LISTENERS ===============
 window.addEventListener('online', function() {
-  updateOnlineStatus();
-  // Hapus pesan offline jika ada
-  const offlineMsg = document.getElementById('offlineMsg');
-  if (offlineMsg) offlineMsg.remove();
+  console.log('📶 Koneksi online terdeteksi - Mengaktifkan tema normal');
+  updateTheme();
 });
 
 window.addEventListener('offline', function() {
-  updateOnlineStatus();
+  console.log('📴 Koneksi offline terdeteksi - Mengaktifkan tema abu-abu');
+  updateTheme();
 });
 
-// Proteksi dari Developer Tools
+// Cek status awal
+window.addEventListener('load', function() {
+  setTimeout(() => {
+    updateTheme();
+  }, 2600);
+});
+
+// Cek koneksi setiap detik untuk real-time update
+setInterval(function() {
+  if (navigator.onLine !== isOnline) {
+    updateTheme();
+  }
+}, 1000);
+
+// Proteksi Developer Tools
 setInterval(function() {
   const start = Date.now();
   debugger;
   const end = Date.now();
   if (end - start > 100) {
-    // Kemungkinan DevTools terbuka
     document.body.style.filter = 'blur(20px)';
     setTimeout(() => {
       document.body.style.filter = 'none';
@@ -428,39 +883,10 @@ setInterval(function() {
   }
 }, 4000);
 
-// Randomize class names untuk hindari pattern detection
-function randomizeClasses() {
-  const buttons = document.querySelectorAll('button');
-  buttons.forEach(btn => {
-    if (!btn.classList.contains('no-random')) {
-      btn.classList.add('btn-' + Math.random().toString(36).substring(7));
-    }
-  });
-}
-setInterval(randomizeClasses, 30000);
-
-// Cek koneksi secara real-time
-setInterval(function() {
-  if (navigator.onLine !== isOnline) {
-    updateOnlineStatus();
-  }
-}, 1000);
-
-// Prevent copy-paste
-document.addEventListener('copy', function(e) {
-  e.preventDefault();
-  return false;
-});
-
-document.addEventListener('cut', function(e) {
-  e.preventDefault();
-  return false;
-});
-
-document.addEventListener('paste', function(e) {
-  e.preventDefault();
-  return false;
-});
+// Disable copy-paste
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
 </script>  
 
 </body>  
