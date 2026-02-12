@@ -3,7 +3,7 @@
 <head>  
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>LIFXCODE WEBSITE 🤡</title>  
+<title>LIFXCODE WEBSITE 🔒</title>  
   
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">  
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">  
@@ -48,7 +48,14 @@ body::before{
   align-items:center;  
   overflow:hidden;  
   box-shadow:0 0 12px #00f2ff,0 0 28px rgba(0,242,255,.7);  
+  animation: pulse 2s infinite;  
 }  
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 12px #00f2ff, 0 0 28px rgba(0,242,255,.7); }
+  50% { box-shadow: 0 0 20px #00f2ff, 0 0 40px rgba(0,242,255,.9); }
+  100% { box-shadow: 0 0 12px #00f2ff, 0 0 28px rgba(0,242,255,.7); }
+}
   
 .logo-box img{width:100%;height:100%;object-fit:cover;border-radius:50%;}  
 
@@ -75,6 +82,30 @@ body::before{
   55% {opacity:0; transform:translateY(-20px);}  
   100% {opacity:0;}  
 }  
+
+.status-online {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 4px 12px;
+  background: rgba(0, 255, 0, 0.2);
+  border: 1px solid #00ff00;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.status-offline {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 4px 12px;
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid #ff0000;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
   
 .social{display:flex;justify-content:space-between;margin:24px 0;}  
   
@@ -82,21 +113,100 @@ body::before{
   font-size:22px;padding:12px;border-radius:14px;background:rgba(255,255,255,0.07);  
   cursor:pointer;width:50px;height:50px;display:flex;justify-content:center;align-items:center;  
   box-shadow:0 0 8px rgba(0,242,255,0.5);border:none;transition:.3s;  
+  position: relative;
+  overflow: hidden;
 }  
+
+.social button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 242, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.social button:active::before {
+  width: 100px;
+  height: 100px;
+}
   
 .social button:hover{background:#00f2ff;color:black;transform:translateY(-4px) scale(1.1);}  
-.social button i{color:#00f2ff;}  
+.social button:hover i{color:black;}  
+.social button i{color:#00f2ff; transition: .3s;}  
+
+/* Anti-DDoS & Rate Limiting */
+.social button:disabled, .menu button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  pointer-events: none;
+}
   
 .menu button{  
   width:100%;margin:9px 0;padding:14px;border:none;border-radius:16px;  
   font-size:17px;font-weight:600;background:rgba(255,255,255,0.06);color:white;  
-  cursor:pointer;transition:.3s;box-shadow:0 0 6px rgba(0,242,255,0.5);  
+  cursor:pointer;transition:.3s;box-shadow:0 0 6px rgba(0,242,255,0.5);
+  position: relative;
+  overflow: hidden;
 }  
+
+.menu button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 242, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.menu button:active::before {
+  width: 200px;
+  height: 200px;
+}
   
 .menu button i{margin-right:10px;color:#00f2ff;}  
 .menu button:hover{background:#00f2ff;color:black;transform:scale(1.03);}  
-  
+.menu button:hover i{color:black;}  
+
 footer{margin-top:18px;font-size:13px;opacity:.55;}  
+
+/* Anti-Clickjacking */
+iframe {
+  display: none !important;
+}
+
+/* Rate Limiting Indicator */
+.rate-alert {
+  color: #ffaa00;
+  font-size: 12px;
+  margin-top: 5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Watermark Anti-DDoS */
+.ddos-protection {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  font-size: 8px;
+  color: rgba(255,255,255,0.2);
+  z-index: 9999;
+}
 </style>  
 </head>  
 
@@ -104,48 +214,179 @@ footer{margin-top:18px;font-size:13px;opacity:.55;}
 <div class="container">  
 
   <div class="logo-box">
-    <img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png">
+    <img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png" alt="LIFXCODE Logo">
   </div>  
 
-  <p class="desc"></p>  
-
+  <p class="desc"></p>
+  
+  <!-- Status Online/Offline -->
+  <div id="statusContainer" style="margin-top: 10px; min-height: 30px;">
+    <span id="statusBadge" class="status-offline">📡 MENDETEKSI JARINGAN...</span>
+  </div>
+  
+  <!-- Anti-DDoS Protection Badge -->
+  <div style="margin-top: 5px; font-size: 10px; color: rgba(0,242,255,0.7);">
+    <i class="fas fa-shield-haltered"></i> PROTECTED MODE ACTIVE
+  </div>
+  
   <div class="social">  
-    <button onclick="go('github')"><i class="fab fa-github"></i></button>  
-    <button onclick="go('ig')"><i class="fab fa-instagram"></i></button>  
-    <button onclick="go('fb')"><i class="fab fa-facebook"></i></button>  
-    <button onclick="go('tt')"><i class="fab fa-tiktok"></i></button>  
-    <button onclick="go('dc')"><i class="fab fa-discord"></i></button>  
-    <button onclick="go(ddos')"><i class="fas fa-globe"></i></button>  
+    <button onclick="secureGo('github')" id="btn-github"><i class="fab fa-github"></i></button>  
+    <button onclick="secureGo('ig')" id="btn-ig"><i class="fab fa-instagram"></i></button>  
+    <button onclick="secureGo('fb')" id="btn-fb"><i class="fab fa-facebook"></i></button>  
+    <button onclick="secureGo('tt')" id="btn-tt"><i class="fab fa-tiktok"></i></button>  
+    <button onclick="secureGo('dc')" id="btn-dc"><i class="fab fa-discord"></i></button>  
+    <button onclick="secureGo('ddos')" id="btn-ddos"><i class="fas fa-globe"></i></button>  
   </div>  
   
   <div class="menu">  
-    <button onclick="go('waChannel')"><i class="fab fa-whatsapp"></i>Saluran WhatsApp</button>  
-    <button onclick="go('youtube')"><i class="fab fa-youtube"></i>YouTube</button>  
-    <button onclick="go('wa')"><i class="fab fa-whatsapp"></i>WhatsApp</button>  
-    <button onclick="go('email')"><i class="fas fa-envelope"></i>Email</button>  
-    <button onclick="go('ddos')"><i class="fas fa-globe"></i>Website ke 2 LIFXXCODETZ</button>  
+    <button onclick="secureGo('waChannel')" id="btn-waChannel"><i class="fab fa-whatsapp"></i>Saluran WhatsApp</button>  
+    <button onclick="secureGo('youtube')" id="btn-youtube"><i class="fab fa-youtube"></i>YouTube</button>  
+    <button onclick="secureGo('wa')" id="btn-wa"><i class="fab fa-whatsapp"></i>WhatsApp</button>  
+    <button onclick="secureGo('email')" id="btn-email"><i class="fas fa-envelope"></i>Email</button>  
+    <button onclick="secureGo('ddos')" id="btn-website2"><i class="fas fa-globe"></i>Website ke 2 LIFXXCODETZ</button>  
   </div>  
   
-  <footer>© lifffXcodeeTz</footer>  
+  <footer>© lifffXcodeeTz • ANTI-DDOS</footer>  
 </div>  
 
+<div class="ddos-protection">
+  <i class="fas fa-shield"></i> DDoS Protection v2.0 | Session: <span id="sessionId">XXXX</span>
+</div>
+
 <script>  
-function go(type){  
-  if(type==='waChannel') window.open('https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q');  
-  if(type==='youtube') window.open('https://www.youtube.com/@AlifDiaz-v8v');  
-  if(type==='wa') window.open('https://wa.me/6282319663436');  
-  if(type==='email') location.href='mailto:diazalif807@gmail.com';  
-  if(type==='github') window.open('https://github.com/diazalif807-bit');  
-  if(type==='ig') window.open('https://www.instagram.com/lifxdiaz');  
-  if(type==='fb') window.open('https://www.facebook.com');  
-  if(type==='tt') window.open('https://tiktok.com');  
-  if(type==='dc') window.open('https://discord.gg/YbjkvBdWK');  
-  if(type==='ddos') window.open('https://ddos-lifx-codet-z.vercel.app');  
+// ==================== ANTI-DDOS & RATE LIMITING SYSTEM ====================
+const RATE_LIMIT = 5; // Max 5 klik per 10 detik
+const TIME_WINDOW = 10000; // 10 detik
+
+let clickTimestamps = [];
+let isOnline = navigator.onLine;
+let sessionId = Math.random().toString(36).substring(2, 8).toUpperCase();
+document.getElementById('sessionId').textContent = sessionId;
+
+// Proteksi dari frame (Clickjacking)
+if (window.top !== window.self) {
+  window.top.location = window.self.location;
+}
+
+// Disable klik kanan
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+  return false;
+});
+
+// Rate Limiting Function
+function checkRateLimit() {
+  const now = Date.now();
+  clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp < TIME_WINDOW);
+  
+  if (clickTimestamps.length >= RATE_LIMIT) {
+    showRateAlert();
+    return false;
+  }
+  
+  clickTimestamps.push(now);
+  return true;
+}
+
+function showRateAlert() {
+  const alertDiv = document.createElement('div');
+  alertDiv.className = 'rate-alert';
+  alertDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> TERLALU CEPAT! Mohon tunggu 10 detik';
+  alertDiv.id = 'rateAlert';
+  
+  if (!document.getElementById('rateAlert')) {
+    document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.social'));
+  }
+  
+  setTimeout(() => {
+    const alert = document.getElementById('rateAlert');
+    if (alert) alert.remove();
+  }, 3000);
+}
+
+// ==================== ONLINE/OFFLINE DETECTION SYSTEM ====================
+function updateOnlineStatus() {
+  isOnline = navigator.onLine;
+  const statusBadge = document.getElementById('statusBadge');
+  const buttons = document.querySelectorAll('button');
+  
+  if (isOnline) {
+    statusBadge.className = 'status-online';
+    statusBadge.innerHTML = '<i class="fas fa-wifi"></i> ONLINE • DATA AKTIF';
+    
+    // Enable semua button
+    buttons.forEach(btn => {
+      btn.disabled = false;
+    });
+    
+  } else {
+    statusBadge.className = 'status-offline';
+    statusBadge.innerHTML = '<i class="fas fa-wifi-slash"></i> OFFLINE • DATA MATI';
+    
+    // Disable semua button
+    buttons.forEach(btn => {
+      btn.disabled = true;
+    });
+    
+    // Tampilkan pesan offline
+    const offlineMsg = document.createElement('div');
+    offlineMsg.style.color = 'red';
+    offlineMsg.style.marginTop = '10px';
+    offlineMsg.style.padding = '10px';
+    offlineMsg.style.background = 'rgba(255,0,0,0.1)';
+    offlineMsg.style.borderRadius = '10px';
+    offlineMsg.innerHTML = '<i class="fas fa-exclamation-circle"></i> KONEKSI DATA MATI! Website hanya bisa diakses dengan DATA SELULER/INTERNET';
+    offlineMsg.id = 'offlineMsg';
+    
+    if (!document.getElementById('offlineMsg')) {
+      document.querySelector('.container').appendChild(offlineMsg);
+    }
+  }
+}
+
+// Secure function dengan rate limit dan online check
+function secureGo(type) {  
+  // Cek status online
+  if (!navigator.onLine) {
+    alert('⚠️ KONEKSI DATA MATI! Aktifkan data seluler/internet Anda terlebih dahulu.');
+    return;
+  }
+  
+  // Rate limiting
+  if (!checkRateLimit()) {
+    return;
+  }
+  
+  // Proteksi ekstra: random delay untuk hindari automated request
+  setTimeout(() => {
+    // Validasi type
+    const urls = {
+      waChannel: 'https://whatsapp.com/channel/0029Vb5joZuCXC3B3OCYgO1Q',
+      youtube: 'https://www.youtube.com/@AlifDiaz-v8v',
+      wa: 'https://wa.me/6282319663436',
+      email: 'mailto:diazalif807@gmail.com',
+      github: 'https://github.com/diazalif807-bit',
+      ig: 'https://www.instagram.com/lifxdiaz',
+      fb: 'https://www.facebook.com',
+      tt: 'https://tiktok.com',
+      dc: 'https://discord.gg/YbjkvBdWK',
+      ddos: 'https://ddos-lifx-codet-z.vercel.app'
+    };
+    
+    if (urls[type]) {
+      if (type === 'email') {
+        location.href = urls[type];
+      } else {
+        window.open(urls[type], '_blank');
+      }
+    }
+  }, Math.random() * 200); // Random delay 0-200ms
 }  
 
+// ==================== TEKS ANIMASI ====================
 const desc = document.querySelector('.desc');  
-const texts = ["⭐ Selamat Datang Boyy ⭐","Di","Website Saya","LIFXXCODETZ"];  
-let i=0;  
+const texts = ["🔒 ANTI-DDOS SECURE MODE 🔒","⭐ Selamat Datang Boyy ⭐","LIFXXCODETZ","PROTECTED BY RATE LIMIT"];  
+let i = 0;  
 
 function loop(){  
   desc.innerHTML='';  
@@ -155,7 +396,71 @@ function loop(){
   i=(i+1)%texts.length;  
   setTimeout(loop,3000);  
 }  
-loop();  
+loop();
+
+// ==================== EVENT LISTENERS ====================
+window.addEventListener('load', function() {
+  updateOnlineStatus();
+});
+
+window.addEventListener('online', function() {
+  updateOnlineStatus();
+  // Hapus pesan offline jika ada
+  const offlineMsg = document.getElementById('offlineMsg');
+  if (offlineMsg) offlineMsg.remove();
+});
+
+window.addEventListener('offline', function() {
+  updateOnlineStatus();
+});
+
+// Proteksi dari Developer Tools
+setInterval(function() {
+  const start = Date.now();
+  debugger;
+  const end = Date.now();
+  if (end - start > 100) {
+    // Kemungkinan DevTools terbuka
+    document.body.style.filter = 'blur(20px)';
+    setTimeout(() => {
+      document.body.style.filter = 'none';
+    }, 1000);
+  }
+}, 4000);
+
+// Randomize class names untuk hindari pattern detection
+function randomizeClasses() {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(btn => {
+    if (!btn.classList.contains('no-random')) {
+      btn.classList.add('btn-' + Math.random().toString(36).substring(7));
+    }
+  });
+}
+setInterval(randomizeClasses, 30000);
+
+// Cek koneksi secara real-time
+setInterval(function() {
+  if (navigator.onLine !== isOnline) {
+    updateOnlineStatus();
+  }
+}, 1000);
+
+// Prevent copy-paste
+document.addEventListener('copy', function(e) {
+  e.preventDefault();
+  return false;
+});
+
+document.addEventListener('cut', function(e) {
+  e.preventDefault();
+  return false;
+});
+
+document.addEventListener('paste', function(e) {
+  e.preventDefault();
+  return false;
+});
 </script>  
 
 </body>  
