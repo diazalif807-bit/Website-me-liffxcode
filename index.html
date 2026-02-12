@@ -3,13 +3,12 @@
 <head>  
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>LIFXCODE WEBSITE 🔒</title>  
+<title>LIFXXCODETZ • ANTI DDOS</title>  
   
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">  
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">  
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">  
   
 <style>  
-/* RESET & VARIABLES */
 * {
   margin: 0;
   padding: 0;
@@ -17,164 +16,303 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* OPTIMASI PERFORMANCE */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  backface-visibility: hidden;
-}
-
-/* =============== VARIABEL TEMA =============== */
+/* ============= TEMA ONLINE/OFFLINE DENGAN TRANSISI FADE ============= */
 :root {
-  --bg-overlay: rgba(0, 0, 0, 0.35);
-  --blur-amount: 8px;
+  --bg-overlay: rgba(0, 0, 0, 0.45);
   --accent-color: #00f2ff;
-  --accent-glow: rgba(0, 242, 255, 0.7);
-  --text-color: white;
-  --button-bg: rgba(255, 255, 255, 0.07);
-  --button-border: rgba(0, 242, 255, 0.2);
-  --shadow-color: rgba(0, 242, 255, 0.5);
-  --logo-border: #00f2ff;
-  --online-color: #00ff00;
-  --offline-color: #ff0000;
-  --transition-speed: 0.5s;
+  --accent-glow: rgba(0,242,255,0.5);
+  --text-primary: white;
+  --text-secondary: rgba(255,255,255,0.7);
+  --button-bg: rgba(255,255,255,0.06);
+  --button-border: rgba(0,242,255,0.2);
+  --footer-border: rgba(255,255,255,0.08);
+  --copyright-bg: rgba(0,242,255,0.03);
+  --copyright-border: rgba(0,242,255,0.1);
+  --transition-theme: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* TEMA OFFLINE - GRAYSCALE */
+/* TEMA OFFLINE - GRAYSCALE FADE */
 .theme-offline {
-  --bg-overlay: rgba(30, 30, 30, 0.8);
-  --blur-amount: 2px;
-  --accent-color: #888888 !important;
-  --accent-glow: rgba(136, 136, 136, 0.3) !important;
-  --text-color: #cccccc !important;
-  --button-bg: rgba(80, 80, 80, 0.2) !important;
-  --button-border: rgba(136, 136, 136, 0.3) !important;
-  --shadow-color: rgba(136, 136, 136, 0.2) !important;
-  --logo-border: #888888 !important;
-  --online-color: #666666 !important;
-  --offline-color: #666666 !important;
+  --bg-overlay: rgba(30, 30, 35, 0.8);
+  --accent-color: #8899aa !important;
+  --accent-glow: rgba(136, 153, 170, 0.3) !important;
+  --text-primary: #e0e0e0 !important;
+  --text-secondary: #b0b0b0 !important;
+  --button-bg: rgba(80, 80, 85, 0.15) !important;
+  --button-border: rgba(136, 153, 170, 0.3) !important;
+  --footer-border: rgba(136, 153, 170, 0.15) !important;
+  --copyright-bg: rgba(136, 153, 170, 0.05) !important;
+  --copyright-border: rgba(136, 153, 170, 0.15) !important;
 }
 
-/* =============== TRANSISI GLOBAL =============== */
 body {
-  height: 100vh;  
-  background: url('https://cdn.phototourl.com/uploads/2026-02-08-450e82ab-21eb-4562-ae40-33f6ca0c489a.png') no-repeat center center/cover;  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-  color: var(--text-color);  
-  overflow: hidden;  
+  height: 100vh;
+  background: url('https://cdn.phototourl.com/uploads/2026-02-08-450e82ab-21eb-4562-ae40-33f6ca0c489a.png') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-primary);
+  overflow: hidden;
   position: relative;
-  transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}  
-
-body::before {  
-  content: '';  
-  position: absolute;  
-  top: 0;  
-  left: 0;  
-  width: 100%;  
-  height: 100%;  
-  background: var(--bg-overlay);  
-  backdrop-filter: blur(var(--blur-amount));
-  -webkit-backdrop-filter: blur(var(--blur-amount));
-  z-index: 0;
-  transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              backdrop-filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-theme);
 }
 
-/* =============== LOADING SCREEN =============== */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(8px);
+  z-index: 0;
+  transition: var(--transition-theme);
+}
+
+/* ============= LOADING SCREEN ============= */
 .loader-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #0a0c0f;
+  background: radial-gradient(circle at 50% 50%, #0a1018, #030405);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 99999;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-              visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, visibility;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
 .loader {
+  width: 100%;
+  max-width: 420px;
+  padding: 25px;
   text-align: center;
-  transform: translateZ(0);
 }
 
-.cyber-text {
-  font-size: clamp(32px, 8vw, 48px);
+.loader-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  border: 3px solid #00f2ff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 25px rgba(0,242,255,0.4);
+  animation: pulse 2.2s infinite ease;
+}
+
+.loader-logo i {
+  font-size: 38px;
+  color: #00f2ff;
+  text-shadow: 0 0 20px #00f2ff;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 25px rgba(0,242,255,0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(0,242,255,0.7); }
+}
+
+.loader-title {
+  font-size: 26px;
   font-weight: 800;
-  color: #00f2ff;
-  text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
-  letter-spacing: 6px;
-  animation: softGlow 2s infinite ease-in-out;
-  transform: translateZ(0);
-  line-height: 1.2;
-}
-
-@keyframes softGlow {
-  0%, 100% { text-shadow: 0 0 15px rgba(0, 242, 255, 0.5); }
-  50% { text-shadow: 0 0 25px rgba(0, 242, 255, 0.8); }
-}
-
-.loader-bar-container {
-  width: 260px;
-  height: 3px;
-  background: rgba(0, 242, 255, 0.1);
-  margin: 24px auto 0;
-  border-radius: 4px;
-  overflow: hidden;
-  transform: translateZ(0);
-}
-
-.loader-bar {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #00f2ff, #4dffff);
-  border-radius: 4px;
-  animation: progressBar 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  transform: translateZ(0);
-  will-change: width;
-}
-
-@keyframes progressBar {
-  0% { width: 0%; }
-  20% { width: 35%; }
-  50% { width: 65%; }
-  80% { width: 90%; }
-  100% { width: 100%; }
-}
-
-.loader-percentage {
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  transform: translateZ(0);
-}
-
-.loader-percentage span {
-  color: #00f2ff;
-  font-weight: 700;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, #fff, #aaf0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
 }
 
 .loader-sub {
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 8px;
+  color: rgba(255,255,255,0.6);
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  transform: translateZ(0);
+  margin-bottom: 25px;
 }
 
-/* =============== MAIN CONTAINER =============== */
+/* ===== CONNECTION PANEL ===== */
+.connection-panel {
+  background: rgba(10, 20, 30, 0.65);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--button-border);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 20px;
+  transition: var(--transition-theme);
+}
+
+.connection-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--footer-border);
+  transition: var(--transition-theme);
+}
+
+.connection-icon {
+  width: 45px;
+  height: 45px;
+  background: rgba(0,242,255,0.08);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--button-border);
+  transition: var(--transition-theme);
+}
+
+.connection-icon i {
+  font-size: 22px;
+  color: var(--accent-color);
+  transition: var(--transition-theme);
+}
+
+.connection-title h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+  transition: var(--transition-theme);
+}
+
+.connection-title p {
+  font-size: 11px;
+  color: var(--text-secondary);
+  transition: var(--transition-theme);
+}
+
+.network-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.detail-label {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-theme);
+}
+
+.detail-label i {
+  width: 16px;
+  color: var(--accent-color);
+  font-size: 12px;
+  transition: var(--transition-theme);
+}
+
+.detail-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(0,0,0,0.3);
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  transition: var(--transition-theme);
+}
+
+.network-badge {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 8px;
+  transition: var(--transition-theme);
+}
+
+.badge-4g {
+  background: rgba(0, 242, 255, 0.15);
+  border: 1px solid #00f2ff;
+  color: #aaf0ff;
+}
+
+.badge-5g {
+  background: rgba(255, 0, 255, 0.15);
+  border: 1px solid #ff44ff;
+  color: #ffbbff;
+}
+
+.badge-wifi {
+  background: rgba(0, 255, 0, 0.12);
+  border: 1px solid #00ff88;
+  color: #a3ffc0;
+}
+
+.badge-offline {
+  background: rgba(255, 0, 0, 0.12);
+  border: 1px solid #ff6666;
+  color: #ffb3b3;
+}
+
+.loading-container {
+  margin-top: 15px;
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-color), #4dffff);
+  border-radius: 10px;
+  box-shadow: 0 0 15px var(--accent-glow);
+  transition: width 0.3s ease, background 0.8s ease;
+}
+
+.loading-percentage {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-color);
+  text-shadow: 0 0 15px var(--accent-glow);
+  transition: var(--transition-theme);
+}
+
+.loading-status {
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  transition: var(--transition-theme);
+}
+
+.offline-message {
+  background: rgba(40, 20, 20, 0.7);
+  border: 1px solid rgba(255, 80, 80, 0.3);
+  border-radius: 16px;
+  padding: 25px 15px;
+}
+
+.offline-message i {
+  font-size: 45px;
+  color: #ff9999;
+  margin-bottom: 10px;
+}
+
+/* ============= MAIN CONTAINER ============= */
 .container {
   width: 360px;
   text-align: center;
@@ -182,9 +320,8 @@ body::before {
   z-index: 1;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
+  transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1),
+              transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 .container.show {
@@ -192,59 +329,40 @@ body::before {
   transform: translateY(0);
 }
 
-/* =============== LOGO BOX =============== */
-.logo-box {  
-  width: 160px;  
-  height: 160px;  
-  margin: 0 auto 10px;  
-  border: 3px solid var(--logo-border);  
-  border-radius: 50%;  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-  overflow: hidden;  
-  box-shadow: 0 0 15px var(--shadow-color);  
-  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateZ(0);
+.logo-box {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 12px;
+  border: 3px solid var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 0 20px var(--accent-glow);
+  transition: var(--transition-theme);
 }
 
-.logo-box:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 20px var(--accent-glow);
-}
-  
 .logo-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  transition: filter var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: filter 0.8s ease;
 }
 
-/* Filter grayscale saat offline */
 .theme-offline .logo-box img {
-  filter: grayscale(100%);
-}
-
-/* =============== TYPING ANIMATION =============== */
-.typing-container {
-  margin-top: 8px;
-  min-height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  filter: grayscale(80%);
 }
 
 .typing-text {
   font-size: 22px;
   font-weight: 800;
   color: var(--accent-color);
-  text-shadow: 0 0 8px var(--accent-glow);
+  text-shadow: 0 0 10px var(--accent-glow);
   position: relative;
   display: inline-block;
-  transform: translateZ(0);
-  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1),
-              text-shadow var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-theme);
 }
 
 .typing-text::after {
@@ -255,84 +373,31 @@ body::before {
 }
 
 @keyframes cursor {
-  0%, 100% { opacity: 1; }
+  0%,100% { opacity: 1; }
   50% { opacity: 0; }
-}
-
-/* =============== STATUS BADGE =============== */
-#statusContainer {
-  margin-top: 10px;
-  min-height: 32px;
 }
 
 .status-badge {
   display: inline-block;
-  padding: 4px 14px;
+  padding: 5px 16px;
   border-radius: 30px;
   font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform, background, border-color, color;
+  font-weight: 600;
+  margin: 10px 0 5px;
+  transition: var(--transition-theme);
 }
 
 .status-online {
-  background: rgba(0, 255, 0, 0.12);
-  border: 1px solid rgba(0, 255, 0, 0.4);
-  color: #a3ffa3;
-  box-shadow: 0 0 12px rgba(0, 255, 0, 0.1);
+  background: rgba(0,242,255,0.12);
+  border: 1px solid #00f2ff;
+  color: #aaf0ff;
 }
 
 .status-offline {
-  background: rgba(255, 0, 0, 0.12);
-  border: 1px solid rgba(255, 0, 0, 0.4);
-  color: #ffa3a3;
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.1);
+  background: rgba(255,80,80,0.12);
+  border: 1px solid #ff6666;
+  color: #ffb3b3;
 }
-
-/* Tema offline untuk status badge */
-.theme-offline .status-online,
-.theme-offline .status-offline {
-  background: rgba(100, 100, 100, 0.15);
-  border: 1px solid rgba(136, 136, 136, 0.4);
-  color: #b0b0b0;
-  box-shadow: 0 0 12px rgba(136, 136, 136, 0.1);
-}
-
-/* =============== PROTECTION BADGE =============== */
-.protection-badge {
-  margin-top: 5px;
-  font-size: 10px;
-  color: var(--accent-color);
-  opacity: 0.7;
-  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.theme-offline .protection-badge {
-  color: #888888;
-}
-
-/* =============== SOCIAL & MENU BUTTONS =============== */
-.social, .menu, footer, .ddos-protection {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
-}
-
-.melt-animation {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-.social { transition-delay: 0.1s; }
-.menu { transition-delay: 0.2s; }
-footer { transition-delay: 0.3s; }
-.ddos-protection { transition-delay: 0.4s; }
-#statusBadge { transition-delay: 0.05s; }
 
 .social {
   display: flex;
@@ -352,67 +417,54 @@ footer { transition-delay: 0.3s; }
   justify-content: center;
   align-items: center;
   border: 1px solid var(--button-border);
-  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.25s, background 0.8s ease, border-color 0.8s ease, color 0.8s ease;
   color: var(--accent-color);
-  transform: translateZ(0);
 }
 
 .social button:hover {
   background: var(--accent-color);
   color: black;
   border-color: var(--accent-color);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .theme-offline .social button:hover {
-  background: #666666;
-  border-color: #888888;
-  color: white;
+  background: #8899aa;
+  color: #1a1a1a;
 }
 
-.social button i {
-  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.social button:hover i {
-  color: black;
-}
-
-.theme-offline .social button:hover i {
-  color: white;
+.menu {
+  margin-bottom: 10px;
 }
 
 .menu button {
   width: 100%;
   margin: 8px 0;
-  padding: 12px;
+  padding: 12px 16px;
   border: none;
   border-radius: 14px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   background: var(--button-bg);
-  color: var(--text-color);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.25s, background 0.8s ease, border-color 0.8s ease, color 0.8s ease;
   border: 1px solid var(--button-border);
   text-align: left;
   padding-left: 20px;
-  transform: translateZ(0);
 }
 
 .menu button i {
   margin-right: 12px;
   color: var(--accent-color);
-  width: 20px;
-  text-align: center;
-  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-theme);
 }
 
 .menu button:hover {
   background: var(--accent-color);
   color: black;
+  transform: translateX(5px);
   border-color: var(--accent-color);
-  transform: translateX(3px);
 }
 
 .menu button:hover i {
@@ -420,168 +472,223 @@ footer { transition-delay: 0.3s; }
 }
 
 .theme-offline .menu button:hover {
-  background: #666666;
-  border-color: #888888;
-  color: white;
+  background: #8899aa;
+  color: #1a1a1a;
 }
 
-.theme-offline .menu button:hover i {
-  color: white;
+/* ============= MUSIC PLAYER BUTTON ============= */
+.music-player {
+  margin-bottom: 15px;
 }
 
-/* DISABLED STATE */
+.music-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  background: var(--button-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  border: 1px solid var(--button-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: 0.25s, background 0.8s ease, border-color 0.8s ease;
+}
+
+.music-btn i {
+  color: var(--accent-color);
+  font-size: 16px;
+  transition: var(--transition-theme);
+}
+
+.music-btn:hover {
+  background: var(--accent-color);
+  color: black;
+  border-color: var(--accent-color);
+}
+
+.music-btn:hover i {
+  color: black;
+}
+
+.theme-offline .music-btn:hover {
+  background: #8899aa;
+  color: #1a1a1a;
+}
+
+.music-status {
+  font-size: 12px;
+  margin-left: 5px;
+  color: var(--text-secondary);
+  transition: var(--transition-theme);
+}
+
+/* ============= FOOTER ============= */
+footer {
+  margin-top: 25px;
+  padding: 20px 0 15px;
+  border-top: 1px solid var(--footer-border);
+  position: relative;
+  width: 100%;
+  transition: var(--transition-theme);
+}
+
+.copyright-slide {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.copyright-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-color);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--accent-glow);
+  white-space: nowrap;
+  padding: 6px 20px;
+  background: var(--copyright-bg);
+  border-radius: 30px;
+  border: 1px solid var(--copyright-border);
+  display: inline-block;
+  animation: slideCopyright 35s linear infinite;
+  will-change: transform;
+  transition: var(--transition-theme);
+}
+
+@keyframes slideCopyright {
+  0% { transform: translateX(100%); }
+  20% { transform: translateX(0%); }
+  80% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.slide-tagline {
+  margin-top: 12px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  letter-spacing: 3px;
+  text-align: center;
+  transition: var(--transition-theme);
+}
+
+.slide-tagline i {
+  color: var(--accent-color);
+  margin: 0 5px;
+  font-size: 8px;
+  transition: var(--transition-theme);
+}
+
 button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
-  filter: grayscale(100%);
+  filter: grayscale(80%);
 }
 
-/* RATE ALERT */
-.rate-alert {
-  color: #ffd700;
-  font-size: 12px;
-  margin: 8px 0;
-  padding: 6px;
-  background: rgba(255, 215, 0, 0.08);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  animation: fadePulse 2s infinite;
-}
-
-.theme-offline .rate-alert {
-  color: #b0b0b0;
-  border-color: #888888;
-  background: rgba(100, 100, 100, 0.1);
-}
-
-@keyframes fadePulse {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0.6; }
-}
-
-footer {
-  margin-top: 16px;
-  font-size: 12px;
-  opacity: 0.5;
-  color: var(--text-color);
-  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.ddos-protection {
-  position: fixed;
-  bottom: 8px;
-  right: 12px;
-  font-size: 9px;
-  color: var(--accent-color);
-  opacity: 0.25;
-  z-index: 9999;
-  letter-spacing: 1px;
-  transition: color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.theme-offline .ddos-protection {
-  color: #888888;
-}
-
-/* OFFLINE MESSAGE */
-#offlineMsg {
-  margin-top: 12px;
-  padding: 10px;
-  background: rgba(100, 100, 100, 0.15);
-  border: 1px solid rgba(136, 136, 136, 0.4);
-  border-radius: 10px;
-  font-size: 13px;
-  color: #b0b0b0;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* TRANSISI TEMA GLOBAL */
-body, 
-body::before,
-.logo-box,
-.logo-box img,
-.typing-text,
-.protection-badge,
-.social button,
-.social button i,
-.menu button,
-.menu button i,
-.status-badge,
-footer,
-.ddos-protection {
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* HARDWARE ACCELERATION */
-.cyber-text,
-.loader-bar,
-.container,
-.logo-box,
-button,
-.status-badge,
-.social button,
-.menu button {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
-}
-
-/* RESPONSIVE */
 @media (max-width: 400px) {
   .container { width: 320px; }
-  .logo-box { width: 140px; height: 140px; }
-  .cyber-text { font-size: 36px; }
-  .loader-bar-container { width: 220px; }
+  .logo-box { width: 130px; height: 130px; }
+  .loader { padding: 20px; }
+  .copyright-text { font-size: 12px; letter-spacing: 1px; padding: 5px 15px; }
 }
 </style>  
 </head>  
 
 <body id="mainBody">  
-<!-- LOADING SCREEN -->
+<!-- ============= LOADING SCREEN ============= -->
 <div class="loader-wrapper" id="loaderWrapper">
   <div class="loader">
-    <div class="cyber-text">LIFXXCODETZ</div>
-    <div class="loader-bar-container">
-      <div class="loader-bar" id="progressBar"></div>
+    
+    <div class="loader-logo">
+      <i class="fas fa-shield-haltered"></i>
     </div>
-    <div class="loader-percentage">
-      <span id="progressPercent">0</span>% LOADED
+    
+    <div class="loader-title">LIFXXCODETZ</div>
+    <div class="loader-sub">ANTI DDOS SYSTEM</div>
+    
+    <div class="connection-panel" id="connectionPanel">
+      <div class="connection-header">
+        <div class="connection-icon">
+          <i class="fas fa-wifi" id="connectionMainIcon"></i>
+        </div>
+        <div class="connection-title">
+          <h4 id="connectionStatusTitle">MENDETEKSI JARINGAN</h4>
+          <p id="connectionStatusDesc">Memeriksa koneksi internet...</p>
+        </div>
+      </div>
+      
+      <div class="network-detail" id="networkDetail"></div>
+      
+      <div style="margin-top:12px; text-align:center;">
+        <span class="network-badge" id="networkBadge">
+          <i class="fas fa-spinner fa-pulse"></i> MENDETEKSI
+        </span>
+      </div>
     </div>
-    <div class="loader-sub">
-      <i class="fas fa-shield"></i> SECURE SYSTEM v2.0
+    
+    <div id="loadingProgressContainer">
+      <div class="loading-container">
+        <div class="loading-bar-container">
+          <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <div class="loading-percentage" id="loadingPercentage">0%</div>
+        <div class="loading-status" id="loadingStatus">MENUNGGU KONEKSI...</div>
+      </div>
     </div>
+    
+    <div id="offlineLoadingContainer" style="display: none;">
+      <div class="offline-message">
+        <i class="fas fa-wifi-slash"></i>
+        <h3 style="color:#ffaaaa; font-size:18px; margin-bottom:5px;">OFFLINE</h3>
+        <p style="color:rgba(255,200,200,0.8); font-size:12px;">Aktifkan data seluler atau Wi-Fi</p>
+        <span class="network-badge badge-offline" style="margin-top:15px;">
+          <i class="fas fa-exclamation-triangle"></i> TIDAK TERHUBUNG
+        </span>
+      </div>
+    </div>
+    
   </div>
 </div>
 
-<!-- MAIN CONTAINER -->
+<!-- ============= MAIN CONTAINER ============= -->
 <div class="container" id="mainContainer">
+  
   <div class="logo-box">
-    <img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png" alt="LIFXCODE Logo" loading="eager">
+    <img src="https://cdn.phototourl.com/uploads/2026-02-07-be9b7634-a0b1-4ff9-b1f3-ba7a97c4d9c4.png" alt="LIFXXCODETZ">
   </div>  
 
-  <!-- TYPING ANIMATION -->
-  <div class="typing-container">
+  <div style="margin:8px 0 5px;">
     <span id="typingElement" class="typing-text"></span>
   </div>
   
-  <!-- STATUS BADGE -->
-  <div id="statusContainer">
-    <span id="statusBadge" class="status-badge status-offline">📡 MENDETEKSI JARINGAN...</span>
+  <span id="statusBadge" class="status-badge status-offline">
+    <i class="fas fa-spinner fa-pulse"></i> MENDETEKSI...
+  </span>
+  
+  <div style="margin:5px 0 10px; font-size:11px;" id="mainNetworkBadge">
+    <span style="color:var(--text-secondary);"><i class="fas fa-signal"></i> </span>
+    <span id="mainNetworkText" style="color:var(--accent-color); font-weight:600;">MENDETEKSI</span>
   </div>
   
-  <!-- PROTECTION BADGE -->
-  <div class="protection-badge">
-    <i class="fas fa-shield-alt"></i> PROTECTED MODE
+  <!-- ============= MUSIC PLAYER BUTTON ON/OFF ============= -->
+  <div class="music-player">
+    <button id="musicToggleBtn" class="music-btn" onclick="toggleMusic()">
+      <i id="musicIcon" class="fas fa-music"></i>
+      <span id="musicText">PUTAR LAGU</span>
+      <span id="musicStatus" class="music-status">⏸️ OFF</span>
+    </button>
   </div>
   
-  <!-- SOCIAL BUTTONS -->
   <div class="social">  
     <button onclick="secureGo('github')"><i class="fab fa-github"></i></button>  
     <button onclick="secureGo('ig')"><i class="fab fa-instagram"></i></button>  
@@ -591,187 +698,378 @@ button,
     <button onclick="secureGo('ddos')"><i class="fas fa-globe"></i></button>  
   </div>  
   
-  <!-- MENU BUTTONS -->
   <div class="menu">  
     <button onclick="secureGo('waChannel')"><i class="fab fa-whatsapp"></i>Saluran WhatsApp</button>  
     <button onclick="secureGo('youtube')"><i class="fab fa-youtube"></i>YouTube</button>  
     <button onclick="secureGo('wa')"><i class="fab fa-whatsapp"></i>WhatsApp</button>  
     <button onclick="secureGo('email')"><i class="fas fa-envelope"></i>Email</button>  
-    <button onclick="secureGo('ddos')"><i class="fas fa-globe"></i>Website ke 2 LIFXXCODETZ</button>  
+    <button onclick="secureGo('ddos')"><i class="fas fa-globe"></i>WEBSÍTE 2 LIFXXCODETZ</button>  
   </div>  
   
-  <footer>© 2026 LIFXXCODETZ • ANTI-DDOS</footer>  
-</div>  
+  <!-- ============= FOOTER ============= -->
+  <footer>
+    <div class="copyright-slide">
+      <div class="copyright-text">
+        © 2026 LIFXXCODETZ  •  ANTI DDOS SC 
+      </div>
+    </div>
+    
+    <div class="slide-tagline">
+      <i class="fas fa-shield"></i> • KEAMANAN MODE v2 • <i class="fas fa-shield"></i>
+    </div>
+  </footer>
+  
+</div>
 
 <!-- WATERMARK -->
-<div class="ddos-protection">
+<div style="position:fixed; bottom:8px; right:12px; font-size:8px; color:rgba(0,242,255,0.15); z-index:9999; letter-spacing:1px;">
   <i class="fas fa-shield"></i> SESSION: <span id="sessionId">XXXX</span>
 </div>
 
+<!-- AUDIO ELEMENT -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://files.catbox.moe/czxhg7.mp3" type="audio/mpeg">
+  Browser Anda tidak mendukung audio.
+</audio>
+
 <script>  
-// =============== OPTIMASI LOADING SCREEN ===============
-let progressInterval;
-let percent = 0;
+// ============= AUDIO PLAYER =============
+const audio = document.getElementById('bgMusic');
+const musicIcon = document.getElementById('musicIcon');
+const musicText = document.getElementById('musicText');
+const musicStatus = document.getElementById('musicStatus');
+let isMusicPlaying = false;
 
-function updateProgress() {
-  const progressBar = document.getElementById('progressBar');
-  const percentEl = document.getElementById('progressPercent');
-  
-  if (!progressBar || !percentEl) return;
-  
-  if (percent < 20) percent = 20;
-  else if (percent < 50) percent = 50;
-  else if (percent < 80) percent = 80;
-  else if (percent < 95) percent = 95;
-  
-  progressBar.style.width = percent + '%';
-  percentEl.textContent = percent;
-}
+// Setup audio
+audio.volume = 0.5; // Volume 50%
 
-progressInterval = setInterval(() => {
-  if (percent < 95) {
-    percent += Math.floor(Math.random() * 3) + 1;
-    if (percent > 95) percent = 95;
-    updateProgress();
+function toggleMusic() {
+  if (!isOnline) {
+    alert('⚠️ KONEKSI MATI! Aktifkan data/WiFi untuk memutar lagu.');
+    return;
   }
-}, 100);
-
-// =============== TYPING ANIMATION ===============
-const typingElement = document.getElementById('typingElement');
-const textToType = "LIFXXCODETZ";
-let charIndex = 0;
-
-function typeWriter() {
-  if (charIndex < textToType.length) {
-    typingElement.textContent += textToType.charAt(charIndex);
-    charIndex++;
-    setTimeout(typeWriter, 120);
+  
+  if (isMusicPlaying) {
+    audio.pause();
+    musicIcon.className = 'fas fa-music';
+    musicText.textContent = 'PUTAR LAGU';
+    musicStatus.innerHTML = '⏹️ OFF';
+    musicStatus.style.color = 'var(--text-secondary)';
+  } else {
+    audio.play()
+      .then(() => {
+        musicIcon.className = 'fas fa-play-circle';
+        musicText.textContent = 'HENTIKAN LAGU';
+        musicStatus.innerHTML = '▶️ ON';
+        musicStatus.style.color = '#00ff88';
+      })
+      .catch(error => {
+        console.log('Gagal memutar audio:', error);
+        alert('Gagal memutar lagu. Coba lagi.');
+      });
   }
+  isMusicPlaying = !isMusicPlaying;
 }
 
-// =============== LOADING COMPLETE ===============
-window.addEventListener('load', function() {
-  percent = 100;
-  updateProgress();
-  clearInterval(progressInterval);
-  
-  setTimeout(function() {
-    const loader = document.getElementById('loaderWrapper');
-    loader.style.opacity = '0';
-    loader.style.visibility = 'hidden';
-    
-    const container = document.getElementById('mainContainer');
-    container.classList.add('show');
-    
-    setTimeout(() => {
-      typeWriter();
-    }, 400);
-    
-    setTimeout(() => {
-      startMeltAnimation();
-    }, 1000);
-    
-  }, 2200);
-});
-
-// =============== ANIMASI MENU PENCAIRAN ===============
-function startMeltAnimation() {
-  const elements = [
-    document.getElementById('statusBadge'),
-    document.querySelector('.social'),
-    document.querySelector('.menu'),
-    document.querySelector('footer'),
-    document.querySelector('.ddos-protection')
-  ];
-  
-  elements.forEach(el => {
-    if (el) el.classList.add('melt-animation');
-  });
-}
-
-// =============== SISTEM TEMA ONLINE/OFFLINE ===============
-const mainBody = document.getElementById('mainBody');
+// ============= TEMA ONLINE/OFFLINE DENGAN TRANSISI FADE =============
 let isOnline = navigator.onLine;
-let isTransitioning = false;
+let networkType = 'unknown';
+let loadingInterval = null;
+let loadingPercent = 0;
+let shouldStartLoading = false;
 
-// Fungsi untuk mengupdate tema berdasarkan status online
-function updateTheme() {
-  if (isTransitioning) return;
-  isTransitioning = true;
+// ELEMENTS
+const mainBody = document.getElementById('mainBody');
+const loaderWrapper = document.getElementById('loaderWrapper');
+const mainContainer = document.getElementById('mainContainer');
+const connectionMainIcon = document.getElementById('connectionMainIcon');
+const connectionStatusTitle = document.getElementById('connectionStatusTitle');
+const connectionStatusDesc = document.getElementById('connectionStatusDesc');
+const networkDetail = document.getElementById('networkDetail');
+const networkBadge = document.getElementById('networkBadge');
+const loadingBar = document.getElementById('loadingBar');
+const loadingPercentage = document.getElementById('loadingPercentage');
+const loadingStatus = document.getElementById('loadingStatus');
+const loadingProgressContainer = document.getElementById('loadingProgressContainer');
+const offlineLoadingContainer = document.getElementById('offlineLoadingContainer');
+const statusBadge = document.getElementById('statusBadge');
+const typingElement = document.getElementById('typingElement');
+const mainNetworkText = document.getElementById('mainNetworkText');
+
+// SESSION ID
+const sessionId = Math.random().toString(36).substring(2, 8).toUpperCase();
+document.getElementById('sessionId').textContent = sessionId;
+
+// ============= DETEKSI JARINGAN =============
+async function detectNetworkType() {
+  const info = {
+    online: navigator.onLine,
+    effectiveType: 'unknown',
+    downlink: 0,
+    networkCategory: 'offline',
+    networkName: 'OFFLINE'
+  };
   
-  isOnline = navigator.onLine;
-  const statusBadge = document.getElementById('statusBadge');
-  const buttons = document.querySelectorAll('button');
+  if (!info.online) return info;
   
-  // Hapus class tema offline
+  if ('connection' in navigator) {
+    const conn = navigator.connection;
+    info.effectiveType = conn.effectiveType || '4g';
+    info.downlink = conn.downlink || 0;
+    
+    if (info.effectiveType === '4g') {
+      if (info.downlink >= 10) {
+        info.networkCategory = '5g';
+        info.networkName = '5G';
+      } else {
+        info.networkCategory = '4g';
+        info.networkName = '4G';
+      }
+    }
+    
+    if (conn.type === 'wifi' || conn.type === 'ethernet') {
+      info.networkCategory = 'wifi';
+      info.networkName = 'WiFi';
+    } else if (conn.type === 'cellular') {
+      if (!info.networkName.includes('G')) {
+        info.networkName = '4G';
+        info.networkCategory = '4g';
+      }
+    }
+  }
+  
+  if (info.networkCategory === 'offline' && info.online) {
+    info.networkCategory = '4g';
+    info.networkName = '4G';
+  }
+  
+  return info;
+}
+
+// ============= UPDATE UI DENGAN TEMA OTOMATIS =============
+async function updateNetworkUI() {
+  const info = await detectNetworkType();
+  
+  isOnline = info.online;
+  networkType = info.networkCategory;
+  
+  // TERAPKAN TEMA BERDASARKAN STATUS ONLINE/OFFLINE
   if (isOnline) {
+    // FADE OUT TEMA OFFLINE, FADE IN TEMA ONLINE
     mainBody.classList.remove('theme-offline');
     
-    // Update status badge
-    statusBadge.className = 'status-badge status-online melt-animation';
-    statusBadge.innerHTML = '<i class="fas fa-wifi"></i> ONLINE • DATA AKTIF';
-    
-    // Enable buttons
-    buttons.forEach(btn => btn.disabled = false);
-    
-    // Hapus pesan offline
-    const offlineMsg = document.getElementById('offlineMsg');
-    if (offlineMsg) {
-      offlineMsg.style.opacity = '0';
-      setTimeout(() => offlineMsg.remove(), 500);
+    if (networkType === 'wifi') {
+      connectionMainIcon.className = 'fas fa-wifi';
+      connectionMainIcon.style.color = '#00ff88';
+      connectionStatusTitle.textContent = 'WI-FI TERHUBUNG';
+      connectionStatusDesc.textContent = `Kecepatan: ${info.downlink ? info.downlink.toFixed(1) : '~'} Mbps`;
+    } else if (networkType === '5g') {
+      connectionMainIcon.className = 'fas fa-signal';
+      connectionMainIcon.style.color = '#ff44ff';
+      connectionStatusTitle.textContent = '5G TERHUBUNG';
+      connectionStatusDesc.textContent = `Kecepatan: ${info.downlink ? info.downlink.toFixed(1) : '~10+'} Mbps`;
+    } else if (networkType === '4g') {
+      connectionMainIcon.className = 'fas fa-signal';
+      connectionMainIcon.style.color = '#00f2ff';
+      connectionStatusTitle.textContent = '4G TERHUBUNG';
+      connectionStatusDesc.textContent = `Kecepatan: ${info.downlink ? info.downlink.toFixed(1) : '~'} Mbps`;
     }
     
-    // Update protection badge
-    document.querySelector('.protection-badge i').className = 'fas fa-shield-alt';
+    let typeIcon = networkType === 'wifi' ? 'fa-wifi' : 'fa-signal';
+    let typeColor = networkType === 'wifi' ? '#00ff88' : networkType === '5g' ? '#ff44ff' : '#00f2ff';
+    let rttText = '~30 ms';
+    let downlinkText = info.downlink ? `${info.downlink.toFixed(1)} Mbps` : 
+                      (networkType === '5g' ? '10+ Mbps' : '5-10 Mbps');
+    
+    networkDetail.innerHTML = `
+      <div class="detail-row">
+        <span class="detail-label"><i class="fas ${typeIcon}" style="color:${typeColor};"></i> Tipe</span>
+        <span class="detail-value" style="background:${typeColor}20; color:${typeColor};">${info.networkName}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label"><i class="fas fa-clock"></i> Ping</span>
+        <span class="detail-value">${rttText}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label"><i class="fas fa-download"></i> Speed</span>
+        <span class="detail-value">${downlinkText}</span>
+      </div>
+    `;
+    
+    networkBadge.className = 'network-badge';
+    if (networkType === 'wifi') {
+      networkBadge.classList.add('badge-wifi');
+      networkBadge.innerHTML = '<i class="fas fa-wifi"></i> WI-FI';
+    } else if (networkType === '5g') {
+      networkBadge.classList.add('badge-5g');
+      networkBadge.innerHTML = '<i class="fas fa-signal"></i> 5G';
+    } else {
+      networkBadge.classList.add('badge-4g');
+      networkBadge.innerHTML = '<i class="fas fa-signal"></i> 4G';
+    }
+    
+    mainNetworkText.innerHTML = networkType === 'wifi' ? 'WiFi' : 
+                                networkType === '5g' ? '5G' : '4G';
+    mainNetworkText.style.color = networkType === 'wifi' ? '#00ff88' : 
+                                  networkType === '5g' ? '#ff44ff' : '#00f2ff';
+    
+    statusBadge.className = 'status-badge status-online';
+    statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> ONLINE • ' + info.networkName;
+    
+    loadingProgressContainer.style.display = 'block';
+    offlineLoadingContainer.style.display = 'none';
+    
+    if (!shouldStartLoading) {
+      shouldStartLoading = true;
+      startAdaptiveLoading(networkType, info.downlink);
+    }
     
   } else {
+    // FADE IN TEMA OFFLINE
     mainBody.classList.add('theme-offline');
     
-    // Update status badge
-    statusBadge.className = 'status-badge status-offline melt-animation';
-    statusBadge.innerHTML = '<i class="fas fa-wifi-slash"></i> OFFLINE • DATA MATI';
+    connectionMainIcon.className = 'fas fa-wifi-slash';
+    connectionMainIcon.style.color = '#ff8888';
+    connectionStatusTitle.textContent = 'OFFLINE';
+    connectionStatusDesc.textContent = 'Tidak ada koneksi cuyy hubungkan egee';
     
-    // Disable buttons
-    buttons.forEach(btn => btn.disabled = true);
+    networkDetail.innerHTML = `
+      <div class="detail-row">
+        <span class="detail-label"><i class="fas fa-exclamation-triangle"></i> Status</span>
+        <span class="detail-value" style="color:#ffa3a3;">OFFLINE</span>
+      </div>
+    `;
     
-    // Tampilkan pesan offline dengan animasi
-    if (!document.getElementById('offlineMsg')) {
-      setTimeout(() => {
-        const msg = document.createElement('div');
-        msg.id = 'offlineMsg';
-        msg.style.opacity = '0';
-        msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> MODE OFFLINE - Aktifkan data seluler/internet untuk mengakses fitur';
-        document.querySelector('.container').appendChild(msg);
-        
-        setTimeout(() => {
-          msg.style.opacity = '1';
-        }, 50);
-      }, 300);
+    networkBadge.className = 'network-badge badge-offline';
+    networkBadge.innerHTML = '<i class="fas fa-exclamation-triangle"></i> OFFLINE';
+    
+    mainNetworkText.innerHTML = 'OFFLINE';
+    mainNetworkText.style.color = '#ff8888';
+    
+    statusBadge.className = 'status-badge status-offline';
+    statusBadge.innerHTML = '<i class="fas fa-wifi-slash"></i> OFFLINE';
+    
+    loadingProgressContainer.style.display = 'none';
+    offlineLoadingContainer.style.display = 'block';
+    
+    shouldStartLoading = false;
+    loadingPercent = 0;
+    if (loadingInterval) clearInterval(loadingInterval);
+    loadingBar.style.width = '0%';
+    loadingPercentage.textContent = '0%';
+    loadingStatus.textContent = 'MENUNGGU KONEKSI...';
+    
+    // HENTIKAN MUSIK SAAT OFFLINE
+    if (isMusicPlaying) {
+      audio.pause();
+      isMusicPlaying = false;
+      musicIcon.className = 'fas fa-music';
+      musicText.textContent = 'PUTAR LAGU';
+      musicStatus.innerHTML = '⏹️ OFF';
+      musicStatus.style.color = 'var(--text-secondary)';
     }
-    
-    // Update protection badge
-    document.querySelector('.protection-badge i').className = 'fas fa-shield';
   }
-  
-  // Selesaikan transisi
-  setTimeout(() => {
-    isTransitioning = false;
-  }, 600);
 }
 
-// =============== ANTI-DDOS & RATE LIMIT ===============
+// ============= LOADING ADAPTIF =============
+function startAdaptiveLoading(networkType, downlink) {
+  if (!isOnline) return;
+  
+  loadingPercent = 0;
+  if (loadingInterval) clearInterval(loadingInterval);
+  
+  let intervalTime, increment;
+  
+  if (networkType === 'wifi' || networkType === '5g' || (downlink && downlink > 8)) {
+    intervalTime = 45;
+    increment = 2.4;
+    loadingStatus.textContent = 'WI-FI/5G • MEMUAT CEPAT...';
+  } else if (networkType === '4g' || (downlink && downlink > 2)) {
+    intervalTime = 70;
+    increment = 1.6;
+    loadingStatus.textContent = '4G • MEMUAT NORMAL...';
+  } else {
+    intervalTime = 110;
+    increment = 1.0;
+    loadingStatus.textContent = 'KONEKSI ANJ LEMOT BAT • MEMUAT...';
+  }
+  
+  loadingInterval = setInterval(() => {
+    if (!isOnline) {
+      clearInterval(loadingInterval);
+      return;
+    }
+    
+    loadingPercent += increment;
+    
+    if (loadingPercent >= 100) {
+      loadingPercent = 100;
+      loadingBar.style.width = '100%';
+      loadingPercentage.textContent = '100%';
+      
+      clearInterval(loadingInterval);
+      
+      setTimeout(() => {
+        if (isOnline) finishLoading();
+      }, 400);
+      
+    } else {
+      loadingBar.style.width = loadingPercent + '%';
+      loadingPercentage.textContent = Math.floor(loadingPercent) + '%';
+    }
+  }, intervalTime);
+}
+
+// ============= SELESAI LOADING =============
+function finishLoading() {
+  loaderWrapper.style.opacity = '0';
+  loaderWrapper.style.visibility = 'hidden';
+  
+  mainContainer.classList.add('show');
+  
+  startTypingAnimation();
+  
+  setTimeout(() => {
+    document.querySelector('.social').style.opacity = '1';
+    document.querySelector('.social').style.transform = 'translateY(0)';
+    document.querySelector('.menu').style.opacity = '1';
+    document.querySelector('.menu').style.transform = 'translateY(0)';
+    document.querySelector('.music-player').style.opacity = '1';
+    document.querySelector('.music-player').style.transform = 'translateY(0)';
+    document.querySelector('footer').style.opacity = '1';
+    document.querySelector('footer').style.transform = 'translateY(0)';
+  }, 200);
+}
+
+// ============= TYPING ANIMATION =============
+function startTypingAnimation() {
+  const text = "LIFXXCODETZ";
+  let i = 0;
+  typingElement.textContent = '';
+  
+  let speed = networkType === 'wifi' || networkType === '5g' ? 80 : 
+              networkType === '4g' ? 110 : 150;
+  
+  function type() {
+    if (i < text.length) {
+      typingElement.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  
+  setTimeout(type, 300);
+}
+
+// ============= ANTI DDOS & RATE LIMIT =============
 const RATE_LIMIT = 5;
 const TIME_WINDOW = 10000;
 let clickTimestamps = [];
-const sessionId = Math.random().toString(36).substring(2, 7).toUpperCase();
-document.getElementById('sessionId').textContent = sessionId;
 
-// Proteksi iframe
 if (window.top !== window.self) {
   window.top.location = window.self.location;
 }
 
-// Disable klik kanan
 document.addEventListener('contextmenu', e => e.preventDefault());
 
 function checkRateLimit() {
@@ -779,7 +1077,7 @@ function checkRateLimit() {
   clickTimestamps = clickTimestamps.filter(t => now - t < TIME_WINDOW);
   
   if (clickTimestamps.length >= RATE_LIMIT) {
-    showRateAlert();
+    alert('⚠️ TERLALU CEPAT BNGST! Tunggu 10 detik.');
     return false;
   }
   
@@ -787,32 +1085,9 @@ function checkRateLimit() {
   return true;
 }
 
-function showRateAlert() {
-  if (!document.getElementById('rateAlert')) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = 'rate-alert';
-    alertDiv.id = 'rateAlert';
-    alertDiv.style.opacity = '0';
-    alertDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> TERLALU CEPAT! Tunggu 10 detik';
-    document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.social'));
-    
-    setTimeout(() => {
-      alertDiv.style.opacity = '1';
-    }, 50);
-    
-    setTimeout(() => {
-      alertDiv.style.opacity = '0';
-      setTimeout(() => {
-        const alert = document.getElementById('rateAlert');
-        if (alert) alert.remove();
-      }, 500);
-    }, 2800);
-  }
-}
-
-function secureGo(type) {  
-  if (!navigator.onLine) {
-    alert('⚠️ KONEKSI DATA MATI! Aktifkan data seluler/internet Anda terlebih dahulu.');
+function secureGo(type) {
+  if (!isOnline) {
+    alert('⚠️ KONEKSI MATI ANJG! Aktifkan data/WiFi terlebih dahulu.');
     return;
   }
   
@@ -832,61 +1107,42 @@ function secureGo(type) {
   };
   
   if (urls[type]) {
-    // Efek klik
-    const btn = event.currentTarget;
-    btn.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      btn.style.transform = '';
-    }, 200);
-    
-    setTimeout(() => {
-      type === 'email' ? location.href = urls[type] : window.open(urls[type], '_blank');
-    }, 100);
+    if (type === 'email') {
+      location.href = urls[type];
+    } else {
+      window.open(urls[type], '_blank');
+    }
   }
 }
 
-// =============== EVENT LISTENERS ===============
-window.addEventListener('online', function() {
-  console.log('📶 Koneksi online terdeteksi - Mengaktifkan tema normal');
-  updateTheme();
+// ============= EVENT LISTENERS =============
+window.addEventListener('online', async function() {
+  isOnline = true;
+  await updateNetworkUI();
 });
 
-window.addEventListener('offline', function() {
-  console.log('📴 Koneksi offline terdeteksi - Mengaktifkan tema abu-abu');
-  updateTheme();
+window.addEventListener('offline', async function() {
+  isOnline = false;
+  await updateNetworkUI();
+  if (loadingInterval) clearInterval(loadingInterval);
 });
 
-// Cek status awal
-window.addEventListener('load', function() {
-  setTimeout(() => {
-    updateTheme();
-  }, 2600);
+window.addEventListener('load', async function() {
+  await updateNetworkUI();
 });
 
-// Cek koneksi setiap detik untuk real-time update
-setInterval(function() {
-  if (navigator.onLine !== isOnline) {
-    updateTheme();
-  }
-}, 1000);
+setInterval(async function() {
+  if (isOnline) await updateNetworkUI();
+}, 5000);
 
-// Proteksi Developer Tools
-setInterval(function() {
-  const start = Date.now();
-  debugger;
-  const end = Date.now();
-  if (end - start > 100) {
-    document.body.style.filter = 'blur(20px)';
-    setTimeout(() => {
-      document.body.style.filter = 'none';
-    }, 1000);
-  }
-}, 4000);
-
-// Disable copy-paste
 document.addEventListener('copy', e => e.preventDefault());
 document.addEventListener('cut', e => e.preventDefault());
 document.addEventListener('paste', e => e.preventDefault());
+
+// Style untuk music player
+document.querySelector('.music-player').style.opacity = '0';
+document.querySelector('.music-player').style.transform = 'translateY(15px)';
+document.querySelector('.music-player').style.transition = 'opacity 0.5s ease, transform 0.5s ease';
 </script>  
 
 </body>  
